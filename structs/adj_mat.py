@@ -7,12 +7,12 @@ class AdjMatrix(Graph):
         self.vertexes = {}
 
     def make_relation(self, a, b, val=1) -> bool:
-        if a in not self.vertexes:
+        if a not in self.vertexes:
             self.vertexes[a] = {}
         self.vertexes[a][b] = val
 
         if(self.get_type() == Type.GRAPH):
-            if b in not self.vertexes:
+            if b not in self.vertexes:
                 self.vertexes[b] = {}
             self.vertexes[b][a] = val
     

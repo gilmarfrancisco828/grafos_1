@@ -73,7 +73,7 @@ class AdjList(Graph):
             current = self.vertexes[vertex]
             while current is not None:
                 if self.is_valued():
-                    print("(", vertex, "," + current.get_index(), ",", current.get_val(), ")
+                    print("(", vertex, "," + current.get_index(), ",", current.get_val(), ")")
                 else:
                     print("(", vertex, "," + current.get_index(), ")")
                 current = current.get_prox()
