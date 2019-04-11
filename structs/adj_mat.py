@@ -7,7 +7,6 @@ class AdjMatrix(Graph):
         self.vertexes = {}
 
     def make_relation(self, a, b, val=1) -> bool:
-        # Esquecemos de fazer validação para o caso de ser ou não valorado
         if a in not self.vertexes:
             self.vertexes[a] = {}
         self.vertexes[a][b] = val
