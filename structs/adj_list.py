@@ -1,4 +1,5 @@
 import graph
+
 class Item():
     def __init__(self, index):
         self.index = index
@@ -10,7 +11,7 @@ class Item():
     def set_next(self, next):
         self.next = next
 
-    def get_next(self) -> Item:
+    def get_next(self):# -> Item: nao pode usar pq ainda se esta definindo o Item aqui (provavelmente)
         return self.next
 
 class ValItem(Item):
@@ -20,9 +21,9 @@ class ValItem(Item):
     def get_val(self) -> int:
         return self.val
 
-class AdjList(Graph):
+class AdjList(graph.Graph):
 
-    def __init__(self, _len: int, _type: Type, _val: bool):
+    def __init__(self, _len: int, _type: graph.Type, _val: bool):
         super(_len, _type, _val)
         self.vertexes = {}
 
@@ -73,7 +74,7 @@ class AdjList(Graph):
             current = self.vertexes[vertex]
             while current is not None:
                 if self.is_valued():
-                    print("(", vertex, "," + current.get_index(), ",", current.get_val(), ")
+                    print("(", vertex, "," + current.get_index(), ",", current.get_val(), ")")
                 else:
                     print("(", vertex, "," + current.get_index(), ")")
                 current = current.get_prox()

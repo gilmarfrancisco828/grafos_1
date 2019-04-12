@@ -1,3 +1,5 @@
+from enum import Enum
+from abc import abstractmethod
 class Type(Enum):
     GRAPH = False
     DIGRAPH = True
