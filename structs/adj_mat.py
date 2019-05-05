@@ -1,4 +1,4 @@
-import graph
+from graph import *
 
 class AdjMatrix(Graph):
 

@@ -1,4 +1,5 @@
-import graph
+from graph import *
+import heapq #binary heap, garantee Dijkstra w/ O(n log m)
 
 class Item():
     def __init__(self, index):
@@ -21,9 +22,9 @@ class ValItem(Item):
     def get_val(self) -> int:
         return self.val
 
-class AdjList(graph.Graph):
+class AdjList(Graph):
 
-    def __init__(self, _len: int, _type: graph.Type, _val: bool):
+    def __init__(self, _len: int, _type: Type, _val: bool):
         super(_len, _type, _val)
         self.vertexes = {}
 
@@ -88,3 +89,22 @@ class AdjList(graph.Graph):
                         return current.get_val()
                     current = current.get_prox()
         return None
+    
+    def dijkstra(s):
+        d  = {}
+        pi = {}
+        w = lambda a, b: get_value(a,b)
+        for x in list(self.vertexes.keys):
+            d[x]  = float('inf')
+            pi[x] = None
+        d[s]  = 0
+        Q = heapq()
+        for x in self.vertexes:
+            heapq.heappush(Q,(d[x], x))
+        while Q:
+            v = heapq.heappop(Q)
+            for u in vertexes[v]:
+                if d[u] > d[v] + w(u, v):
+                    d[u] = d[u] + w(u, v)
+                    pi[u] = v
+                    
