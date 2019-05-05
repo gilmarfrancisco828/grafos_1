@@ -1,19 +1,17 @@
-from graph import Graph
+from graph import Graph, Type
+from collections import defaultdict
+
 
 class AdjMatrix(Graph):
 
     def __init__(self, _len: int, _type: Type, _val: bool):
         super(_len, _type, _val)
-        self.vertexes = {}
+        self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
-        if a not in self.vertexes:
-            self.vertexes[a] = {}
         self.vertexes[a][b] = val
 
         if(self.get_type() == Type.GRAPH):
-            if b not in self.vertexes:
-                self.vertexes[b] = {}
             self.vertexes[b][a] = val
     
     def is_adjacent(self, a, b) -> bool:

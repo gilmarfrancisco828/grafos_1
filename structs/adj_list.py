@@ -1,6 +1,5 @@
 from graph import Graph, Type
 
-import heapq #binary heap, garantee Dijkstra w/ O(n log m)
 
 class Item():
     def __init__(self, index):
@@ -16,12 +15,14 @@ class Item():
     def get_next(self):# -> Item: nao pode usar pq ainda se esta definindo o Item aqui (provavelmente)
         return self.next
 
+
 class ValItem(Item):
     def __init__(self, index, val: int):
         super(index)
 
     def get_val(self) -> int:
         return self.val
+
 
 class AdjList(Graph):
 
@@ -62,7 +63,7 @@ class AdjList(Graph):
                     current.set_prox(ValItem(a, val))
                 else:
                     current.set_prox(Item(a))
-    
+
     def is_adjacent(self, a, b) -> bool:
         current = self.vertexes[a]
         while current is not None:
@@ -90,22 +91,3 @@ class AdjList(Graph):
                         return current.get_val()
                     current = current.get_prox()
         return None
-    
-    def dijkstra(self, s):
-        d  = {}
-        pi = {}
-        w = lambda a, b: get_value(a,b)
-        for x in list(self.vertexes.keys):
-            d[x]  = float('inf')
-            pi[x] = None
-        d[s]  = 0
-        Q = heapq()
-        for x in self.vertexes:
-            heapq.heappush(Q,(d[x], x))
-        while Q:
-            v = heapq.heappop(Q)
-            for u in vertexes[v]:
-                if d[u] > d[v] + w(u, v):
-                    d[u] = d[u] + w(u, v)
-                    pi[u] = v
-                    
