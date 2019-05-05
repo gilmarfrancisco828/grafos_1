@@ -35,7 +35,11 @@ class Controller(object):
               '9 - Caminho mínimo - Bellman-Ford\n')
         op = str(input('Digite o valor associado a opção escolhida: '))
         return op
-      
+
+    def get_vertexes(self):
+        self._vertexes = File.get_vertexes()
+        print(*l)
+
+    def get_edges(self):
+        self._edges = File.get_edges()
         
-
-

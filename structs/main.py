@@ -8,14 +8,13 @@ def main():
 
     ctrl = Controller()
     ctrl.show_folders()
-    while True:
-        op = ctrl.show_menu()
-        if op.lower() == 's':
-            exit()
-
-
+    # while True:
+    #     op = ctrl.show_menu()
+    #     if op.lower() == 's':
+    #         exit()
     
-    
+    ctrl.get_vertexes()
+    ctrl.get_edges()
 
 
 if __name__ == '__main__':

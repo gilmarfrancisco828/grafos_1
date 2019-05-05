@@ -1,4 +1,5 @@
-from graph import *
+from graph import Graph, Type
+
 import heapq #binary heap, garantee Dijkstra w/ O(n log m)
 
 class Item():
@@ -90,7 +91,7 @@ class AdjList(Graph):
                     current = current.get_prox()
         return None
     
-    def dijkstra(s):
+    def dijkstra(self, s):
         d  = {}
         pi = {}
         w = lambda a, b: get_value(a,b)
