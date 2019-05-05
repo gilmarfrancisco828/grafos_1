@@ -1,29 +1,33 @@
 
 
-class File(object):
-    self._arquivo = None
-    self._text = []
-
-    def __init__(self, file_name):
-        self._arquivo = open(file_name, 'r')
-        self._text = []
-
-    def read_file():
-        for x in _arquivo:
-            self._text.append(x)
-
-    def close_file(arq):
-        if arq is not None:
-            arq.close()
-
-    def get_edges_qtd():
-        return int(self._text[1])
+class File():
+    _arquivo = None
+    _text = []
     
-    def is_digraph():
-        return  int(self._text[0])
+    @staticmethod
+    def read_file(filename):
+        File._arquivo = open(filename,'r')
+        for x in File._arquivo:
+            File._text.append(x)
+    
+    @staticmethod
+    def close_file():
+        if not File._arquivo == None:
+            File._arquivo.close()
 
+    @staticmethod
+    def get_vertexes_qtd():
+        #print(File._text[0])
+        return int(File._text[0])
+    
+    @staticmethod
+    def is_digraph():
+        return  bool(File._text[0])
+
+    @staticmethod
     def is_graph():
         return not is_digraph()
 
+    @staticmethod
     def get_edges():
         pass

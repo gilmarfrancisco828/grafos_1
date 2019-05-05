@@ -1,9 +1,22 @@
 #coding utf-8
-from adj_list import *
-from graph import Type as tp
+
+from controller import Controller
+
+
 
 def main():
-    g = AdjList(5, tp.GRAPH, False)
+
+    ctrl = Controller()
+    ctrl.show_folders()
+    while True:
+        op = ctrl.show_menu()
+        if op.lower() == 's':
+            exit()
+
+
+    
+    
+
 
 if __name__ == '__main__':
     main()
