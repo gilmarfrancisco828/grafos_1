@@ -28,13 +28,13 @@ def BELLMAN_FORD(G: Graph, s):
             for v in G.vertexes[u]:
                 relax(aux, u, v, G.get_value(u, v))
         else:
-            cur = graph.vertexes[u]
+            cur = G.vertexes[u]
             while cur is not None:
                 relax(aux, u, cur.get_index(), cur.get_val())
                 cur = cur.get_prox()
 
     for u in G.vertexes:
-        cur = graph.vertexes[u]
+        cur = G.vertexes[u]
         while cur is not None:
             if aux.d[cur.get_index()] > (aux.d[u] + cur.get_val()):
                 return False
