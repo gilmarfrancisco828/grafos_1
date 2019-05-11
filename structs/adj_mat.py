@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 from structs.graph import Graph, Type
 from collections import defaultdict
 
-=======
-from graph import Graph
->>>>>>> 144f3ba707892668b627711f3ab077394d543098
 
 class AdjMatrix(Graph):
 
