@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 from structs.graph import Graph, Type
 from collections import defaultdict
 
+=======
+from graph import Graph
+>>>>>>> 144f3ba707892668b627711f3ab077394d543098
 
 class AdjMatrix(Graph):
 
@@ -9,9 +13,13 @@ class AdjMatrix(Graph):
         self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
+        if a not in self.vertexes:
+            self.vertexes[a] = {}
         self.vertexes[a][b] = val
 
         if(self.get_type() == Type.GRAPH):
+            if b not in self.vertexes:
+                self.vertexes[b] = {}
             self.vertexes[b][a] = val
     
     def is_adjacent(self, a, b) -> bool:

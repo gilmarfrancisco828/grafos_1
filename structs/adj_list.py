@@ -83,6 +83,7 @@ class AdjList(Graph):
                     cur = cur.get_next()
         return None
 
+<<<<<<< HEAD
     def print_all(self):
         for a in self.vertexes:
             cur = self.vertexes[a]
@@ -92,3 +93,6 @@ class AdjList(Graph):
                 else:
                     print("(", a, "," + cur.get_index(), ")")
                 cur = cur.get_next()
+=======
+    
+>>>>>>> 144f3ba707892668b627711f3ab077394d543098

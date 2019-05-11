@@ -1,7 +1,7 @@
 #coding utf-8
 
 from controller import Controller
-
+help(controller)
 def main():
 
     ctrl = Controller()
