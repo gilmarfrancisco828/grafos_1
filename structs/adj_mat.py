@@ -9,6 +9,10 @@ class AdjMatrix(Graph):
         self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
+        if b is None:  # if the vertice has no relations
+            self.vertexes[a] = {}
+            return True
+
         if a not in self.vertexes:
             self.vertexes[a] = {}
         self.vertexes[a][b] = val

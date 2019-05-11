@@ -31,7 +31,11 @@ class AdjList(Graph):
         self.vertexes = {}
 
 
-    def make_relation(self, a, b, val=1) -> bool:
+    def make_relation(self, a, b=None, val=1) -> bool:
+        if b is None:  # if the vertice has no relations
+            self.vertexes[a] = None
+            return True
+   
         if a not in self.vertexes:
             if self.is_valued():
                 self.vertexes[a] = ValItem(b, val)
