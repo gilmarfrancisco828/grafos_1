@@ -1,11 +1,11 @@
-from graph import Graph, Type
+from structs.graph import Graph, Type
 from collections import defaultdict
 
 
 class AdjMatrix(Graph):
 
     def __init__(self, _len: int, _type: Type, _val: bool):
-        super(_len, _type, _val)
+        super().__init__(_len, _type, _val)
         self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
@@ -20,15 +20,16 @@ class AdjMatrix(Graph):
         else:
             return False
 
-    def print_all(self):
-        for vertex in self.vertexes:
-            for edge in self.vertexes[vertex]:
-                if self.is_valued():
-                    print("(", vertex, ",", edge, ",", get_value(vertex, edge), ")")
-                else:
-                    print("(", vertex, ",", edge, ")")
-    
     def get_value(self, a, b):
         if a in self.vertexes and b in self.vertexes[a]:
             return self.vertexes[a][b]
         return None
+
+    def print_all(self):
+        for a in self.vertexes:
+            for b in self.vertexes[a]:
+                if self.is_valued():
+                    print("(", a, ",", b, ",", self.get_value(a, b), ")")
+                else:
+                    print("(", a, ",", b, ")")
+
