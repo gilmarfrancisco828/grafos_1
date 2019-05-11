@@ -1,4 +1,5 @@
 from queue import Queue
+from collections import defaultdict
 from enum import Enum
 import sys
 
@@ -15,14 +16,14 @@ class Color(Enum):
 
 class DFSAuxiliar():
 
-    def __init__(self, len):
-        self.color = []
-        self.d = []
-        self.pi = []
-        for i in range(0, len):
-            self.color.append(1)
-            self.d.append(None)
-            self.pi.append(None)
+    def __init__(self, vertexes):
+        self.color = defaultdict(dict)
+        self.d = defaultdict(dict)
+        self.pi = defaultdict(dict)
+        for i in vertexes:
+            self.color[i] = Color.WHITE
+            self.d[i] = float('inf')
+            self.pi[i] = None
 
 
 def change_auxiliar(aux: DFSAuxiliar, q: Queue, u, v):
@@ -34,14 +35,9 @@ def change_auxiliar(aux: DFSAuxiliar, q: Queue, u, v):
 
 
 def BFS(G: Graph, s):
-    aux = DFSAuxiliar(G.len)
-    for u in range(0, G.len):
-        if s == u:
-            continue
-
-        aux.color[u] = Color.WHITE
-        aux.d[u] = sys.maxsize
-        aux.pi[u] = None
+    aux = DFSAuxiliar(G.vertexes)
+    if s not in G.vertexes:
+        return aux
 
     aux.color[s] = Color.GRAY
     aux.d[s] = 0
@@ -55,16 +51,12 @@ def BFS(G: Graph, s):
         if isinstance(G, AdjList):
             current = G.vertexes[u]
             while current is not None:
-                v = current.get_val()
+                v = current.get_index()
                 change_auxiliar(aux, q, u, v)
-                current = current.get_prox()
+                current = current.get_next()
         else:
             if isinstance(G, AdjMatrix):
                 for v in G.vertexes[u]:
-                    # Tem essa parte ainda???
-                    # if G.vertexes[u][v] == 0:
-                    #     continue
-
                     change_auxiliar(aux, q, u, v)
         aux.color[u] = Color.BLACK
 
