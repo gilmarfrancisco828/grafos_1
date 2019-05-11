@@ -4,7 +4,7 @@ class AdjMatrix(Graph):
 
     def __init__(self, _len: int, _type: Type, _val: bool):
         super(_len, _type, _val)
-        self.vertexes = {}
+        self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
         if a not in self.vertexes:
