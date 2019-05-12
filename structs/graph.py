@@ -1,5 +1,6 @@
 from enum import Enum
 from abc import abstractmethod
+from collections import defaultdict
 
 
 class Type(Enum):
@@ -13,6 +14,7 @@ class Graph(object):
         self._len = _len
         self._type = _type
         self._val = _val
+        self.vertexes = defaultdict(dict)
 
     @abstractmethod
     def make_relation(self, a, b, val: int) -> bool:

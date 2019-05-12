@@ -54,6 +54,7 @@ def tests():
 
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
+
 def read_file(fileName):
     '''Realiza a leitura do arquivo texto que contem 
     o grafo, recebe nome do arquivo'''

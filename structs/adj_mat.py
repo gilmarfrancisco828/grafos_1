@@ -1,12 +1,10 @@
 from structs.graph import Graph, Type
-from collections import defaultdict
 
 
 class AdjMatrix(Graph):
 
     def __init__(self, _len: int, _type: Type, _val: bool):
         super().__init__(_len, _type, _val)
-        self.vertexes = defaultdict(dict)
 
     def make_relation(self, a, b, val=1) -> bool:
         if b is None:  # if the vertice has no relations

@@ -28,15 +28,14 @@ class AdjList(Graph):
 
     def __init__(self, _len: int, _type: Type, _val: bool):
         super().__init__(_len, _type, _val)
-        self.vertexes = {}
 
 
     def make_relation(self, a, b=None, val=1) -> bool:
         if b is None:  # if the vertice has no relations
             self.vertexes[a] = None
             return True
-   
-        if a not in self.vertexes:
+
+        if a not in self.vertexes or self.vertexes[a] is None:
             if self.is_valued():
                 self.vertexes[a] = ValItem(b, val)
             else:
@@ -44,7 +43,7 @@ class AdjList(Graph):
         else:
             cur = self.vertexes[a]
             while cur.get_next() is not None:
-                if cur.get_index() == b:
+                if cur.get_index() == b:  # não pode ter relação múltipla???
                     return False
                 cur = cur.get_next()
             if self.is_valued():
@@ -53,20 +52,17 @@ class AdjList(Graph):
                 cur.set_next(Item(b))
         
         if b not in self.vertexes:
-            if self.is_valued():
-                self.vertexes[b] = None
-            else:
-                self.vertexes[b] = None
+            self.vertexes[b] = None
 
         if(self.get_type() == Type.GRAPH):
-            if b not in self.vertexes:
+            if b not in self.vertexes or self.vertexes[b] is None:
                 if self.is_valued():
                     self.vertexes[b] = ValItem(a, val)
                 else:
                     self.vertexes[b] = Item(a)
             else:
                 cur = self.vertexes[b]
-                while cur.get_next() is not None:
+                while cur is not None:
                     if cur.get_index() == a:
                         return False
                     cur = cur.get_next()
