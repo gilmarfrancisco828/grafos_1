@@ -78,7 +78,7 @@ def DIJKSTRA_LIST(G: Graph, s):
 
     print(aux.d)
     print(aux.pi)
-
+    return aux
 
 print(DIJKSTRA_LIST(graph, 0))
 
