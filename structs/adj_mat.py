@@ -12,14 +12,15 @@ class AdjMatrix(Graph):
         if b is None:  # if the vertice has no relations
             self.vertexes[a] = {}
             return True
-
+        
         if a not in self.vertexes:
             self.vertexes[a] = {}
         self.vertexes[a][b] = val
 
+        if b not in self.vertexes:
+            self.vertexes[b] = {}
+        
         if(self.get_type() == Type.GRAPH):
-            if b not in self.vertexes:
-                self.vertexes[b] = {}
             self.vertexes[b][a] = val
     
     def is_adjacent(self, a, b) -> bool:

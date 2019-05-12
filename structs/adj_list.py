@@ -51,6 +51,12 @@ class AdjList(Graph):
                 cur.set_next(ValItem(b, val))
             else:
                 cur.set_next(Item(b))
+        
+        if b not in self.vertexes:
+            if self.is_valued():
+                self.vertexes[b] = None
+            else:
+                self.vertexes[b] = None
 
         if(self.get_type() == Type.GRAPH):
             if b not in self.vertexes:
