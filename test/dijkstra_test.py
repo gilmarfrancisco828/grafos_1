@@ -1,4 +1,5 @@
-import algorithms.DIJKSTRA as dijkstra
+from algorithms.DIJKSTRA import *
+from structs.graph import Type
 
 
 
@@ -9,13 +10,16 @@ def res_d(condition):
 def res_pi(condition):
     print ("\t", "✗ " if not(condition) else "✓", "vetor pi")
 
+def res_loops(condition):
+    print("\t", "✗ " if not(condition) else "✓", "loops")
+
 
 def tests():
     print("+++ Testes para Dijkstra +++++++++++++++++++++++++++++++")
     # grafo vazio
     contents = read_file("test/test_files/01_vazio.txt")
     graph = generate_graph(contents, True, True)
-    result = dijkstra.DIJKSTRA_LIST(graph, '0')
+    result = DIJKSTRA_LIST(graph, '0')
     print("- Teste para Grafo Vazio")
     res_d(not(len(result.d)))
     res_pi(not(len(result.pi)))
@@ -23,7 +27,7 @@ def tests():
     # grafo unitário
     contents = read_file("test/test_files/02_unitario.txt")
     graph = generate_graph(contents, True, True)
-    result = dijkstra.DIJKSTRA_LIST(graph, 'a')
+    result = DIJKSTRA_LIST(graph, 'a')
     print("- Teste para Grafo Unitário")
     res_d(result.d == {'a': 0})
     res_pi(result.pi == {'a': None})
@@ -33,11 +37,18 @@ def tests():
     # grafo nao conexo
     contents = read_file("test/test_files/04_nao_conexo.txt")
     graph = generate_graph(contents, True, True)
-    result = dijkstra.DIJKSTRA_LIST(graph, 'a')
+    result = DIJKSTRA_LIST(graph, 'a')
     print("- Teste para Grafo Não Conexo")
     res_d(result.d == {'a': 0, 'b': float('inf')})
     res_pi(result.pi == {'a': None, 'b': None})
 
+    #grafo com loop negativo
+    contents = read_file('test/test_files/09_3vertices_1loop_negativo.txt')
+    graph = generate_graph(contents, True, True)
+    graph.set_num_edges(get_len_edges())
+    result = DIJKSTRA_LIST(graph, 'a')
+    print("- Teste para com Loop negativo")
+    res_loops(result.loops == graph.get_len_edges())
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 def read_file(fileName):
@@ -47,6 +58,8 @@ def read_file(fileName):
     contents = f.read().split("\n")
     return contents
 
+def get_len_edges(contents):
+    return len(contents)-2
 
 def generate_graph(contents: list, val: bool, t_struct: bool):
     """Função recebe uma lista de arestas e cria o grafo

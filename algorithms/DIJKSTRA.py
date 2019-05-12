@@ -1,4 +1,4 @@
-from graph import Graph
+from structs.graph import Graph
 
 
 class MinHeap:
@@ -38,12 +38,15 @@ class MinHeap:
 
 
 class DijkstraAux(object):
-    def __init__(self, s: int, len: int):
+    
+    def __init__(self, s: int, len: int, len_edge: int):
         self.Q = MinHeap()
         self.d = [float('inf') for i in range(0, len)]
         self.pi = [None for i in range(0, len)]
         self.d[s] = 0
         self.Q.updateKey((0, 0))
+        self.max_it = len_edge
+        
 
 
 def relax(aux: DijkstraAux, u: int, v: int, w: int):
@@ -56,9 +59,9 @@ def relax(aux: DijkstraAux, u: int, v: int, w: int):
 
 
 def DIJKSTRA_LIST(G: Graph, s):
-    aux = DijkstraAux(s, G.len)
+    aux = DijkstraAux(s, G.len, G.get_len_edges())
     S = []
-    
+    loop = 0
     while len(aux.Q.heap) != 0:
         # print("Len:",len(aux.Q.heap))
         u = aux.Q.extractMin()[1]
@@ -66,19 +69,22 @@ def DIJKSTRA_LIST(G: Graph, s):
         S.append(u)
         current = G.vertices[u]
         if isinstance(G, AdjMatrix):
-            while current is not None:
+            while current is not None and loop < aux.max_it:
                 relax(aux, u, current.get_val(), current.get_depth())
                 current = current.get_prox()
+                loop +=1
             # break
         elif isinstance(G, AdjMatrix):
             for v in G.vertexes[u]:
                 relax(aux, u, current.get_val(), current.get_depth())
         else:
             print('Erro: Formato inválido!')
+        aux.loops +=1
+
 
     print(aux.d)
     print(aux.pi)
     return aux
 
-print(DIJKSTRA_LIST(graph, 0))
+#print(DIJKSTRA_LIST(G, 0))
 
