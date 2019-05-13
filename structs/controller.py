@@ -1,7 +1,9 @@
 #coding utf-8
 
-from graph import Type as tp
-from adj_list import AdjList
+from graph import Type
+from AdjList import *
+from AdjMatrix import *
+from algorithms import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from file_graph import File
@@ -9,10 +11,18 @@ from file_graph import File
 
 class Controller(object):
     "A classe controller, seguindo o padrão MVC, será a responsável por fazer o interfaceamento entre \no usuário (cliente main) e a implementação das estruturas e respectivos métodos."
-    _adjg     = None
-    _adjdg    = None
-    _matrixg  = None
-    _matrixdg = None
+    def __init__():
+        self._G = None
+
+
+    def create_graph(self, _len: int, _type: Type, _val: bool, _type_structure=None):
+        if _type_structure == None:
+            return False
+        elif _type_structure == True:
+            self._G = AdjList(_len, _type, _val)
+        else:
+            self._G = AdjMatrix(_len, _type, _val)
+            
 
     def show_folders(self):
         "método para procurar o arquivo que contém o grafo ou dígrafo"
@@ -45,7 +55,9 @@ class Controller(object):
         "metodo para escolher a representação computacional que será usada para o grafo"
         print('1 - Lista de Adjacência\n'
               '2 - Matriz de Adjacência\n')
-        return str(input('Digite o número referente a escolha: '))
+        a = int(input('Digite o número referente a escolha: '))
+        return True if a == 1 else False
+
 
     def get_vertexes(self):
         self._vertexes = File.get_vertexes()
@@ -57,11 +69,14 @@ class Controller(object):
     
     def DFS(self):
         "método para realizar o algoritmo de Depth-First Search"
-        pass
+        self._G.DFS()
+        #TODO: Print result
+        
     
     def BFS(self):
         "método referente ao algoritmo Breadth-First Search"
-        pass
+        self._G.BFS
+        
     
     def caminho_entre_vertex(self):
         "método para verificar se existe caminho entre dois vértices"
@@ -73,12 +88,21 @@ class Controller(object):
     
     def prim(self, s):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
-        pass
+        prim_res = self._G.prim(s)
+        #TODO: Print result
+        
     
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        pass
-    
+        dikstra_aux = self._G.dijkstra(s)
+        #TODO: Print result
+        
+    def kruskal(self, s):
+        kruskal_res = self._G.kruskal(s)
+        #TODO: Print result
+
     def bellman_ford(self):
         "método que utiliza o algoritmo de Bellman-Ford para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        pass
+        bellman_ford_aux = self._G.bellman_ford(s)
+        #TODO: Print result
+    

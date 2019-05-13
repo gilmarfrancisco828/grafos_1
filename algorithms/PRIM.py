@@ -31,7 +31,7 @@ def prim(G: Graph, r):
                 if v in Q and w(u,v) < chave[v]:
                     chave[v] = w(u,v)
                     pi[v] = u
-    
+    return X
         
 
 
