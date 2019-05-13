@@ -15,16 +15,16 @@ def KRUSKAL(G: Graph):
         setV[u] = u
         if isinstance(G, AdjList):
             cur = G.vertexes[u]
-            while cur.get_next() is not None:
-                Al.append((u, cur.get_index(), cur.get_val()))
-                cur = cur.get_prox()
+
+            while cur is not None:
+                Al.append((u, cur.get_index(), cur.get_value()))
+                cur = cur.get_next()
         else:
             for v in G.vertexes[u]:
                 Al.append((u, v, G.get_value(u, v)))
 
     # sort the list of vertices
     Al = sorted(Al, key=lambda x: x[2])
-
     for uv in Al:
         u = setV[uv[0]]
         v = setV[uv[1]]
