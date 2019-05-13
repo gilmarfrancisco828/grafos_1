@@ -62,7 +62,7 @@ class AdjList(Graph):
                     self.vertexes[b] = Item(a)
             else:
                 cur = self.vertexes[b]
-                while cur is not None:
+                while cur.get_next() is not None:
                     if cur.get_index() == a:
                         return False
                     cur = cur.get_next()

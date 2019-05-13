@@ -30,7 +30,7 @@ def DFS_VISIT(G: Graph, aux: DFSAuxiliar, u, time: int):
     time += 1
     aux.d[u] = time
     aux.r[aux.c_root] = u  # labels the vertexes
-
+    print("cheguei")
     if isinstance(G, AdjMatrix):
         for v in G.vertexes[u]:
             if (G.vertexes[u][v] == 1) & (aux.color[v] == Color.WHITE):
@@ -49,17 +49,21 @@ def DFS_VISIT(G: Graph, aux: DFSAuxiliar, u, time: int):
     return time
 
 
-def DFS(G: Graph, s):
+def DFS(G: Graph, s=None):
     aux = DFSAuxiliar(G.vertexes)
 
-    if s not in G.vertexes:
-        return aux
-    # for u in G.vertexes:
+    if s is None:
+        for u in G.vertexes:
+            if aux.color[u] == Color.WHITE:
+                time = 0
+                aux.c_root = u
+                time = DFS_VISIT(G, aux, u, time)
+    else:
+        if s not in G.vertexes:
+            return aux
 
-    if aux.color[s] == Color.WHITE:
-        time = 0
         aux.c_root = s
-        time = DFS_VISIT(G, aux, s, time)
+        DFS_VISIT(G, aux, s, 0)
 
     # print(aux.r)
     # print(aux.d)

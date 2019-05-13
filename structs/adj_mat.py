@@ -6,7 +6,7 @@ class AdjMatrix(Graph):
     def __init__(self, _len: int, _type: Type, _val: bool):
         super().__init__(_len, _type, _val)
 
-    def make_relation(self, a, b, val=1) -> bool:
+    def make_relation(self, a, b=None, val=1) -> bool:
         if b is None:  # if the vertice has no relations
             self.vertexes[a] = {}
             return True
