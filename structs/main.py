@@ -6,6 +6,8 @@ def main():
 
     ctrl = Controller()
     ctrl.show_folders()
+    ds = ctrl.select_data_structure()
+    ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph())
     #help(Controller)
     while True:
         os.system('clear')
@@ -19,7 +21,7 @@ def main():
         else:
             if op == '1':
                 ds = ctrl.select_data_structure()
-                ctrl.create_graph(ctrl.get_contents(), ds,ctrl.is_graph())
+                ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph())
                 #TODO adicionar verificacao valorado ou nao
             elif op == '2':
                 s = ctrl.select_vertex()
@@ -39,6 +41,7 @@ def main():
             elif op == '7':
                 ctrl.kruskal()
             elif op == '8':
+                s = ctrl.select_vertex()
                 ctrl.dijkstra(s)
             elif op == '9':
                 s = ctrl.select_vertex()

@@ -21,9 +21,17 @@ class BellmanFordAux(object):
             print('Há loop negativo, portanto, resposta não confiável')
         else:
             print('Não há loop negativo, portanto, resposta confiável')
-        print(self.d)
-        print(self.pi)
-        
+        for x in self.d:
+            if self.d[x] == 0:
+                s = x
+                break
+        for u in self.pi:
+            if self.pi[u] == s:
+                son = u
+                break
+        print('Distância de ',s, ' para ',son,': ', self.d[son])
+        print(son, '<--', s)
+
 
 def relax(aux: BellmanFordAux, u, v, w: int):
     if aux.d[v] > (aux.d[u]+w):

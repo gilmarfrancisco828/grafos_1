@@ -12,6 +12,8 @@ from algorithms.BELLMAN_FORD import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from structs.file_graph import File
+from app.print_path_BFS import *
+from app.print_times import *
 
 
 class Controller(object):
@@ -22,14 +24,14 @@ class Controller(object):
     
     def DFS(self, s):
         "método para realizar o algoritmo de Depth-First Search"
-        DFS_res = DFS(self._G, s)
-        DFS_res.print_DFS()
+        DFS_res = DFS(self._G, s, True)
+        print_times(DFS_res)
         input()
     
     def BFS(self, s):
         "método para realizar ao algoritmo Breadth-First Search"
         BFS_res = BFS(self._G, s)
-        BFS_res.print_BFS()
+        print_path(BFS_res, s)
         input()
     
     def prim(self, s):
@@ -45,7 +47,7 @@ class Controller(object):
     
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        dijkstra_res = DIJKSTRA_LIST(self._G, s)
+        dijkstra_res = dijkstra(self._G, s)
         dijkstra_res.print_dijkstra()
         input()
         #TODO: Print result
@@ -57,12 +59,13 @@ class Controller(object):
         input()
         #TODO: Print result
     
-    def caminho_entre_vertex(self):
+    def caminho_entre_vertex(self, s, t):
         "método para verificar se existe caminho entre dois vértices"
         pass
 
     def is_conected(self):
         "método para verificar se um grafo é conexo"
+
         pass
     
     def is_graph(self):
