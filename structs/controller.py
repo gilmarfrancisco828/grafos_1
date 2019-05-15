@@ -134,7 +134,8 @@ class Controller(object):
         self._vertexes = File.get_vertexes()
         
     def get_edges(self):
-        self._edges = File.get_edges()
+        edges = File.get_edges()
+        _G.set_num_edges(len(edges))
         
     def select_vertex(self):
         self._G.print_all_vertexes()

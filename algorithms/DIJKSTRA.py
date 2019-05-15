@@ -42,15 +42,15 @@ class MinHeap:
 
 class DijkstraAux(object):
     
-    def __init__(self, s: int, len: int, len_edge: int):
+    def __init__(self, s, len: int, len_edge: int):
         self.Q = MinHeap()
         # self.d = [float('inf') for i in range(0, len)]
         # self.pi = [None for i in range(0, len)]
         self.d = defaultdict(dict)
         self.pi = defaultdict(dict)
         self.d[s] = defaultdict(dict)
-        self.Q.updateKey((0, 0))
-        self.max_it = len_edge
+        self.Q.updateKey((0, '0'))
+        self.max_it = len
         
     
 
@@ -83,24 +83,23 @@ def dijkstra(G: Graph, s):
 
     S = []
     loop = 0
-    while len(aux.Q.heap) != 0:
+    while len(aux.Q.heap) != 0 and loop < aux.max_it:
         # print("Len:",len(aux.Q.heap))
         u = aux.Q.extractMin()[1]
-        # print("u:", u)
+        print("u:", u)
         S.append(u)
         current = G.vertexes[u]
         if isinstance(G, AdjList):
-            while current is not None and loop < aux.max_it:
-                relax(aux, u, current.get_val(), current.get_depth())
-                current = current.get_prox()
-                loop +=1
+            while current is not None:
+                relax(aux, u, current.get_index(), current.get_value())
+                current = current.get_next()
             # break
         elif isinstance(G, AdjMatrix):
             for v in G.vertexes[u]:
-                relax(aux, u, current.get_val(), current.get_depth())
+                relax(aux, u, v, G.get_value(u, v))
         else:
             print('Erro: Formato inválido!')
-        loop += 1
+        loop +=1
 
 
     print(aux.d)

@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
 from structs.graph import Graph
@@ -21,16 +22,24 @@ class BellmanFordAux(object):
             print('Há loop negativo, portanto, resposta não confiável')
         else:
             print('Não há loop negativo, portanto, resposta confiável')
-        for x in self.d:
-            if self.d[x] == 0:
-                s = x
-                break
-        for u in self.pi:
-            if self.pi[u] == s:
-                son = u
-                break
-        print('Distância de ',s, ' para ',son,': ', self.d[son])
-        print(son, '<--', s)
+        dist = self.d
+        father = self.pi
+        print(father)
+
+        for x in dist:
+            # print(x)
+            if dist[x] != 0:
+                u = x
+                print('Caminho de ',u,' até a raiz:')
+                while father[u] is not None: 
+                    print(u)
+                    print(father[u])
+                    input()
+                    u = father[x]
+            
+
+
+        
 
 
 def relax(aux: BellmanFordAux, u, v, w: int):
