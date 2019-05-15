@@ -4,12 +4,7 @@ class File():
     _arquivo = None
     _text = []
     
-    @staticmethod
-    def read_file(filename):
-        File._arquivo = open(filename,'r')
-        for x in File._arquivo:
-            File._text.append(x)
-    
+
     @staticmethod
     def close_file():
         if not File._arquivo == None:
@@ -47,3 +42,13 @@ class File():
             edges.append(File._text[i])
             i += 1
         return edges
+
+@staticmethod
+def read_file(fileName):
+    '''Realiza a leitura do arquivo texto que contem 
+    o grafo, recebe nome do arquivo'''
+    f = open(fileName, "r")
+    contents = f.read().split("\n")
+    return contents
+
+

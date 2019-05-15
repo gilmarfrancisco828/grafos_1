@@ -1,35 +1,58 @@
 #coding utf-8
 
-from graph import Type
-from AdjList import *
-from AdjMatrix import *
+from structs.graph import Type
+from structs.adj_list import *
+from structs.adj_mat import *
 from algorithms import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
-from file_graph import File
+from structs.file_graph import File
 
 
 class Controller(object):
     "A classe controller, seguindo o padrão MVC, será a responsável por fazer o interfaceamento entre \no usuário (cliente main) e a implementação das estruturas e respectivos métodos."
-    def __init__():
+    def __init__(self):
         self._G = None
+        self._contents = []
 
 
-    def create_graph(self, _len: int, _type: Type, _val: bool, _type_structure=None):
-        if _type_structure == None:
-            return False
-        elif _type_structure == True:
-            self._G = AdjList(_len, _type, _val)
+    def read_file(fileName):
+        '''Realiza a leitura do arquivo texto que contem 
+        o grafo, recebe nome do arquivo'''
+        f = open(fileName, "r")
+        contents = f.read().split("\n")
+        return contents
+
+    def get_contents(self):
+        'Retorna a lista com os elementos do arquivo de grafos'
+        return self._contents
+
+    def create_graph(self , contents: list, val: bool, t_struct: bool):
+        """Função recebe uma lista de arestas e cria o grafo
+            t_struct: True => AdjList e False => AdjMat
+        """
+        if t_struct:
+            self._G = AdjList(int(contents[1]), Type.DIGRAPH, val)
         else:
-            self._G = AdjMatrix(_len, _type, _val)
-            
+            self._G = AdjMatrix(int(contents[1]), Type.DIGRAPH, val)
+        for x in contents[2:]:
+            x = x.split()
+            if(len(x) == 1):
+                self._G.make_relation(x[0])
+            elif(len(x) == 2):
+                self._G.make_relation(x[0], x[1])
+            else:
+                self._G.make_relation(x[0], x[1], int(x[2]))
+
+        # graph.print_all()
+          
 
     def show_folders(self):
         "método para procurar o arquivo que contém o grafo ou dígrafo"
         Tk().withdraw()
         filename = askopenfilename()
         self._arq = File()
-        File.read_file(filename)
+        contents = File.read_file(filename)
    
 
     def close_file(self):
@@ -58,6 +81,7 @@ class Controller(object):
         a = int(input('Digite o número referente a escolha: '))
         return True if a == 1 else False
 
+    
 
     def get_vertexes(self):
         self._vertexes = File.get_vertexes()
@@ -69,13 +93,13 @@ class Controller(object):
     
     def DFS(self):
         "método para realizar o algoritmo de Depth-First Search"
-        self._G.DFS()
+        DFS_res = self._G.DFS()
         #TODO: Print result
         
     
     def BFS(self):
         "método referente ao algoritmo Breadth-First Search"
-        self._G.BFS
+        BFS_res = self._G.BFS()
         
     
     def caminho_entre_vertex(self):
@@ -101,7 +125,7 @@ class Controller(object):
         kruskal_res = self._G.kruskal(s)
         #TODO: Print result
 
-    def bellman_ford(self):
+    def bellman_ford(self, s):
         "método que utiliza o algoritmo de Bellman-Ford para encontrar o caminho mínimo\n de um vértice para todos os outros"
         bellman_ford_aux = self._G.bellman_ford(s)
         #TODO: Print result
