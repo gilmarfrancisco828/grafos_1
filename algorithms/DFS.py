@@ -24,6 +24,10 @@ class DFSAuxiliar():
             self.d[i] = float('inf')
             self.f[i] = float('inf')
 
+    def print_DFS(self):
+        print('Descoberta: ', self.d)
+        print('Finalização: ', self.f)
+
 
 def DFS_VISIT(G: Graph, aux: DFSAuxiliar, u, time: int):
     aux.color[u] = Color.GRAY
@@ -65,7 +69,11 @@ def DFS(G: Graph, s=None):
         aux.c_root = s
         DFS_VISIT(G, aux, s, 0)
 
-    # print(aux.r)
-    # print(aux.d)
-    # print(aux.f)
+    
+    print(aux.r)
+    print(aux.d)
+    print(aux.f)
+
     return aux
+    
+

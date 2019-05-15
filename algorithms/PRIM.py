@@ -1,4 +1,6 @@
-from graph import Graph
+from structs.graph import Graph
+from structs.adj_list import AdjList
+from structs.adj_mat import AdjMatrix
 import heapq
 
 

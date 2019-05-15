@@ -43,12 +43,11 @@ class File():
             i += 1
         return edges
 
-@staticmethod
-def read_file(fileName):
-    '''Realiza a leitura do arquivo texto que contem 
-    o grafo, recebe nome do arquivo'''
-    f = open(fileName, "r")
-    contents = f.read().split("\n")
-    return contents
-
+    @staticmethod
+    def read_file(file_name):
+        '''Realiza a leitura do arquivo texto que contem 
+        o grafo, recebe nome do arquivo'''
+        f = open(file_name, "r")
+        contents = f.read().split("\n")
+        return contents
 

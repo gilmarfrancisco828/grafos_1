@@ -14,7 +14,7 @@ class Color(Enum):
     BLACK = 3
 
 
-class DFSAuxiliar():
+class BFSAuxiliar():
 
     def __init__(self, vertexes):
         self.color = defaultdict(dict)
@@ -24,9 +24,13 @@ class DFSAuxiliar():
             self.color[i] = Color.WHITE
             self.d[i] = float('inf')
             self.pi[i] = None
+    
+    def print_BFS(self):
+        print('COR:', (self.color))
+        print('DISTÂNCIA: ', self.d)
+        print('PAI: ',self.pi)
 
-
-def change_auxiliar(aux: DFSAuxiliar, q: Queue, u, v):
+def change_auxiliar(aux: BFSAuxiliar, q: Queue, u, v):
     if aux.color[v] == Color.WHITE:
         aux.color[v] = Color.GRAY
         aux.d[v] = aux.d[u] + 1
@@ -35,7 +39,7 @@ def change_auxiliar(aux: DFSAuxiliar, q: Queue, u, v):
 
 
 def BFS(G: Graph, s):
-    aux = DFSAuxiliar(G.vertexes)
+    aux = BFSAuxiliar(G.vertexes)
     if s not in G.vertexes:
         return aux
 
@@ -60,7 +64,10 @@ def BFS(G: Graph, s):
                     change_auxiliar(aux, q, u, v)
         aux.color[u] = Color.BLACK
 
-    # print(aux.color)
-    # print(aux.d)
-    # print(aux.pi)
+    
+    # print(*aux.color)
+    # print(*aux.d)
+    # print(*aux.pi)
     return aux
+
+    

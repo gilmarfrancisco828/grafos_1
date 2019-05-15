@@ -28,6 +28,9 @@ class Graph(object):
     @abstractmethod
     def print_all(self):
         pass
+    @abstractmethod
+    def print_all_vertexes():
+        pass
 
     def get_type(self) -> Type:
         return self._type

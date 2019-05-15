@@ -1,5 +1,7 @@
 from structs.graph import Graph
-
+from heapq  import heappop, heappush
+from structs.adj_list import AdjList
+from structs.adj_mat import AdjMatrix
 
 class MinHeap:
     # Constructor to initialize a heap
@@ -46,7 +48,11 @@ class DijkstraAux(object):
         self.d[s] = 0
         self.Q.updateKey((0, 0))
         self.max_it = len_edge
-        
+    #TODO corrigir inicialização
+
+    def print_dijkstra(self):
+        print(self.d)
+        print(self.pi)
 
 
 def relax(aux: DijkstraAux, u: int, v: int, w: int):
@@ -59,7 +65,7 @@ def relax(aux: DijkstraAux, u: int, v: int, w: int):
 
 
 def DIJKSTRA_LIST(G: Graph, s):
-    aux = DijkstraAux(s, G.len, G.get_len_edges())
+    aux = DijkstraAux(s, G.get_len(), G.get_len_edges())
     S = []
     loop = 0
     while len(aux.Q.heap) != 0:
@@ -68,7 +74,7 @@ def DIJKSTRA_LIST(G: Graph, s):
         # print("u:", u)
         S.append(u)
         current = G.vertices[u]
-        if isinstance(G, AdjMatrix):
+        if isinstance(G, AdjList):
             while current is not None and loop < aux.max_it:
                 relax(aux, u, current.get_val(), current.get_depth())
                 current = current.get_prox()

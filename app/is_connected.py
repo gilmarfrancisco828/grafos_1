@@ -44,6 +44,6 @@ def generate_graph(contents: list, val: bool, t_struct: bool):
 
 
 if __name__ == "__main__":
-    contents = read_file("test/test_files/01_vazio.txt")
+    contents = read_file("test/test_files/08_test_final_slide.txt")
     graph = generate_graph(contents, True, False)
     is_connected(graph)
