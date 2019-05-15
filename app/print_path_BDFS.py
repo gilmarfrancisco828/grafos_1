@@ -1,9 +1,20 @@
 from algorithms.DFS import *
+from algorithms.BFS import *
 from structs.graph import Type
 
-def print_times(aux: DFSAuxiliar):
-    for v in aux.color:
-        print('', v, '=> Chegada:', aux.d[v], '\tFinalização:', aux.f[v])
+
+def print_path(func, G: Graph, a, b):
+    result = func(G, a)
+    if result.pi[b] is None:
+        print("Não são conectados", end='')
+    else:
+        print("Caminho:", a, end='')
+        inc = b
+        while result.pi[inc] != a:
+            print(" > " + str(result.pi[inc]), end='')
+            inc = result.pi[inc]
+        print(" > " + str(b), end='')
+    print("\n")
 
 def read_file(fileName):
     '''Realiza a leitura do arquivo texto que contem 
@@ -34,6 +45,9 @@ def generate_graph(contents: list, val: bool, t_struct: bool):
 
 
 if __name__ == "__main__":
-    contents = read_file("test/test_files/09_bellman_ford_slide.txt")
+    contents = read_file("test/test_files/08_test_final_slide.txt")
     graph = generate_graph(contents, True, False)
-    print_times(DFS(graph, input('start:'), True))
+    # a = input('start:')
+    # b = input('end:')
+    # print(res.d)
+    print_path(DFS, graph, '0', '4')
