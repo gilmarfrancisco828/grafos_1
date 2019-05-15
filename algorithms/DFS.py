@@ -70,9 +70,9 @@ def DFS(G: Graph, s=None):
         DFS_VISIT(G, aux, s, 0)
 
     
-    print(aux.r)
-    print(aux.d)
-    print(aux.f)
+    # print(aux.r)
+    # print(aux.d)
+    # print(aux.f)
 
     return aux
     
