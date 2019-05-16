@@ -10,7 +10,6 @@ def main():
     cont = ctrl.get_contents()
     size = len(cont[2].split()) 
     
-    input()
     if  size == 3:
         is_valued = True
     else:

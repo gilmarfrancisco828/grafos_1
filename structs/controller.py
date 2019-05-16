@@ -33,14 +33,14 @@ class Controller(object):
     def BFS(self, s):
         "método para realizar ao algoritmo Breadth-First Search"
         BFS_res = BFS(self._G, s)
-        print_path(BFS_res, s)
+        BFSAuxiliar.print_BFS(BFS_res, s)
         input()
     
     def prim(self, s):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
         if self._G.is_valued():
-            prim_res = prim(self._G, s)
-            print(prim_res)
+            prim_res = PRIM(self._G, s)
+            print(*prim_res)
             input()
         
     def kruskal(self):
