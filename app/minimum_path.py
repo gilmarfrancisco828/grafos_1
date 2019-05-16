@@ -1,4 +1,4 @@
-from algorithms.bellman_ford import *
+from algorithms.BELLMAN_FORD import *
 from algorithms.DIJKSTRA import *
 from structs.graph import Type
 # Funcion to print the path from a vertex to another one
@@ -20,7 +20,7 @@ def minimum_path(func, G: Graph, s):
         o caminho para chegar em cada vértice
     """
 
-    if func is BELLMAN_FORD:
+    if func is bellman_ford:
         res = func(G, s)[1]
     else:
         res = func(G, s)

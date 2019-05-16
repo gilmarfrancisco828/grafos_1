@@ -100,8 +100,10 @@ class AdjList(Graph):
                 cur = cur.get_next()
 
     def print_all_vertexes(self):
+        print('Vértices: ', end='')
         for x in self.vertexes:
-            print(x)
+            print(x, end=' ')
+        print()
         
     def get_len(self):
         return self._len

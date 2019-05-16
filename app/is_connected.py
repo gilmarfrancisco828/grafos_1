@@ -1,5 +1,6 @@
 from algorithms.DFS import *
 from structs.graph import Type
+
 def is_connected(G: Graph):
     """ Verifica se uma grafo é conexo, caso não seja exibe o
     número de componentes e a qual componente cada vértice

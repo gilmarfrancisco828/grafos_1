@@ -41,8 +41,10 @@ class AdjMatrix(Graph):
                     print("(", a, ",", b, ")")
 
     def print_all_vertexes(self):
+        print('Vértices: ', end='')
         for a in self.vertexes:
-            print(a)
+            print(a, end=' ')
+        print()
         
     def get_len(self):
         return self._len
