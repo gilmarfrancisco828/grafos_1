@@ -46,22 +46,21 @@ class Controller(object):
     def kruskal(self):
         if self._G.is_valued():
             kruskal_res = KRUSKAL(self._G)
-            print(kruskal_res)
+            print('Arestas: ',*kruskal_res)
             input()    
     
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        dijkstra_res = dijkstra(self._G, s)
-        dijkstra_res.print_dijkstra()
+        self._G.set_num_edges(self.get_edges())            
+        dijkstra_res = DIJKSTRA(self._G, s)
+        dijkstra_res.print_dijkstra(s)
         input()
-        #TODO: Print result
         
     def bellman_ford(self, s):
         "método que utiliza o algoritmo de Bellman-Ford para encontrar o caminho mínimo\n de um vértice para todos os outros"
         bellman_ford_res = bellman_ford(self._G, s)
-        bellman_ford_res.print_bellman_ford()
+        bellman_ford_res.print_bellman_ford(s)
         input()
-        #TODO: Print result
     
     def caminho_entre_vertex(self, s, t):
         "método para verificar se existe caminho entre dois vértices"
@@ -84,7 +83,7 @@ class Controller(object):
         
     
     def is_graph(self):
-        return True if self._contents[0]==1 else False
+        return False if self._contents[0] == 0 else True
         pass
 
     def get_contents(self):
@@ -149,8 +148,8 @@ class Controller(object):
         self._vertexes = File.get_vertexes()
         
     def get_edges(self):
-        edges = File.get_edges()
-        self._G.set_num_edges(len(edges))
+        edges = len(self._contents)-2
+        return edges
         
     def select_vertex(self,show=True):
         if show == True:

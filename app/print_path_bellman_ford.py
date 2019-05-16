@@ -9,9 +9,9 @@ def print_path(result, s):
         if result.pi[u] is None and u == s:
             print("Caminho: Raiz", end='')
         else:
-            if result.pi[u] is None:
-                print("Não são conectados", end='')
-            else:
+            # if result.pi[u] is None:
+            #     print("Não são conectados", end='')
+            # else:
                 print("Caminho:", u, end='')
                 inc = u
                 len = result.d[inc]

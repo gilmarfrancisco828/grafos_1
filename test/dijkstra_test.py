@@ -51,7 +51,7 @@ def tests():
     print("- Teste para com Loop negativo")
     res_loops(result.loop < result.max_it)
 
-    contents = read_file('test/test_files/10_dijkstra.txt')
+    contents = read_file('grafo1')
     graph = generate_graph(contents, True, False)
     graph.set_num_edges(get_len_edges(contents))
     result = DIJKSTRA(graph, 's')

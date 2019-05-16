@@ -3,6 +3,8 @@ from collections import defaultdict
 from heapq  import heappop, heappush
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
+from app.print_path_bellman_ford import *
+
 
 class MinHeap:
     # Constructor to initialize a heap
@@ -52,11 +54,8 @@ class DijkstraAux(object):
         self.max_it = len + len_edge
         self.loop = 0
 
-    def print_dijkstra(self):
-        for x in self.d:
-            print(x)
-        for x in self.pi:
-            print(x)
+    def print_dijkstra(self, s):
+        print_path(self, s)
 
 
 def relax(aux: DijkstraAux, u, v, w: int):

@@ -10,7 +10,7 @@ def print_path(result, vertex):
     print("Caminho:", vertex, end='')
     inc = vertex
     while result.pi[inc] is not None:
-        print(" > " + str(result.pi[inc]), end='')
+        print(" <-- " + str(result.pi[inc]), end='')
         inc = result.pi[inc]
 
 
@@ -69,4 +69,4 @@ def generate_graph(contents: list, val: bool, t_struct: bool):
 if __name__ == "__main__":
     contents = read_file("test/test_files/09_bellman_ford_slide.txt")
     graph = generate_graph(contents, True, False)
-    minimum_path(BELLMAN_FORD, graph, 'u')
+    minimum_path(bellman_ford, graph, 'u')
