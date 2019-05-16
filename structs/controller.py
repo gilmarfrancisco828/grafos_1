@@ -40,7 +40,7 @@ class Controller(object):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
         if self._G.is_valued():
             prim_res = PRIM(self._G, s)
-            print(*prim_res)
+            print('Arestas: ',*prim_res)
             input()
         
     def kruskal(self):
