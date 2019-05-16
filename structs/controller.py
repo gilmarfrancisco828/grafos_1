@@ -42,24 +42,37 @@ class Controller(object):
             prim_res = PRIM(self._G, s)
             print('Arestas: ',*prim_res)
             input()
+        else:
+            print('Erro! Grafo não valorado!')
+        input()
         
     def kruskal(self):
         if self._G.is_valued():
             kruskal_res = KRUSKAL(self._G)
             print('Arestas: ',*kruskal_res)
             input()    
-    
+        else: 
+            print('Erro! Grafo não valorado!')
+        input()
+
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        self._G.set_num_edges(self.get_edges())            
-        dijkstra_res = DIJKSTRA(self._G, s)
-        dijkstra_res.print_dijkstra(s)
+        if self._G.is_valued():
+            self._G.set_num_edges(self.get_edges())            
+            dijkstra_res = DIJKSTRA(self._G, s)
+            dijkstra_res.print_dijkstra(s)
+            
+        else: 
+            print('Erro! Grafo não valorado!')
         input()
         
     def bellman_ford(self, s):
         "método que utiliza o algoritmo de Bellman-Ford para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        bellman_ford_res = bellman_ford(self._G, s)
-        bellman_ford_res.print_bellman_ford(s)
+        if self._G.is_valued():
+            bellman_ford_res = bellman_ford(self._G, s)
+            bellman_ford_res.print_bellman_ford(s)
+        else: 
+            print('Erro! Grafo não valorado!')
         input()
     
     def caminho_entre_vertex(self, s, t):
