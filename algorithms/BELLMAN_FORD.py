@@ -1,8 +1,9 @@
 from collections import defaultdict
-from app.print_path_bellman_ford import *
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
 from structs.graph import Graph
+from app.print_path_bellman_ford import *
+# from app.minimum_path import *
 
 
 class BellmanFordAux(object):
@@ -17,19 +18,32 @@ class BellmanFordAux(object):
         if s in G.vertexes:
             self.d[s] = 0
 
-    def print_bellman_ford(self):
-        if self.loop == True:
+    def print_bellman_ford(result, s):
+        if result.loop == True:
             print('Há loop negativo, portanto, resposta não confiável')
-        else:
+        elif result.loop == False:
             print('Não há loop negativo, portanto, resposta confiável')
-        dist = self.d
-        father = self.pi
-        # sorted(dist)
-        x = list(dist.keys())[0]
-        print_path(self, x)
+        for u in result.d:
+            print("Vértice:", u)
 
-    
-        
+            if result.pi[u] is None and u == s:
+                print("Caminho: Raiz", end='')
+            else:
+                if result.pi[u] is None:
+                    print("Não são conectados", end='')
+                else:
+                    print("Caminho:", u, end='')
+                    inc = u
+                    len = result.d[inc]
+                    # print(result.d[inc])
+                    # input()
+                    while result.pi[inc] is not None:
+                        print(" <-- " + str(result.pi[inc]), end='')
+                        inc = result.pi[inc]
+                        # len += result.d[inc]
+                    print("\n\tDistância:", len, end='')
+            print("\n")
+            # print_path(self, s)
 
 
 def relax(aux: BellmanFordAux, u, v, w: int):

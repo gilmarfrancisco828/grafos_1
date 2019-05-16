@@ -39,7 +39,7 @@ class Controller(object):
     def prim(self, s):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
         if self._G.is_valued():
-            prim_res = self._G.prim(s)
+            prim_res = prim(self._G, s)
             print(prim_res)
             input()
         
@@ -90,14 +90,14 @@ class Controller(object):
         'Retorna a lista com os elementos do arquivo de grafos'
         return self._contents
 
-    def create_graph(self , contents: list, val: bool, t_struct: bool):
+    def create_graph(self, contents: list, t_struct: bool, tipo, is_valued:bool):
         """Função recebe uma lista de arestas e cria o grafo
             t_struct: True => AdjList e False => AdjMat
         """
         if t_struct:
-            self._G = AdjList(int(self._contents[1]), Type.DIGRAPH, val)
+            self._G = AdjList(int(self._contents[1]), Type.DIGRAPH, is_valued)
         else:
-            self._G = AdjMatrix(int(self._contents[1]), Type.DIGRAPH, val)
+            self._G = AdjMatrix(int(self._contents[1]), Type.DIGRAPH, is_valued)
         for x in contents[2:]:
             x = x.split()
             # print(x)
