@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+from app.print_path_bellman_ford import *
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
 from structs.graph import Graph
@@ -24,21 +24,11 @@ class BellmanFordAux(object):
             print('Não há loop negativo, portanto, resposta confiável')
         dist = self.d
         father = self.pi
-        print(father)
+        # sorted(dist)
+        x = list(dist.keys())[0]
+        print_path(self, x)
 
-        for x in dist:
-            # print(x)
-            if dist[x] != 0:
-                u = x
-                print('Caminho de ',u,' até a raiz:')
-                while father[u] is not None: 
-                    print(u)
-                    print(father[u])
-                    input()
-                    u = father[x]
-            
-
-
+    
         
 
 

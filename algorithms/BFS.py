@@ -6,7 +6,7 @@ import sys
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
 from structs.graph import Graph
-
+from app.print_path_BFS import *
 
 class Color(Enum):
     WHITE = 1
@@ -25,10 +25,8 @@ class BFSAuxiliar():
             self.d[i] = float('inf')
             self.pi[i] = None
     
-    def print_BFS(self):
-        print('COR:', (self.color))
-        print('DISTÂNCIA: ', self.d)
-        print('PAI: ',self.pi)
+    def print_BFS(self, s):
+       print_path(self, s)
 
 def change_auxiliar(aux: BFSAuxiliar, q: Queue, u, v):
     if aux.color[v] == Color.WHITE:

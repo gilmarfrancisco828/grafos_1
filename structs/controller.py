@@ -9,12 +9,14 @@ from algorithms.DIJKSTRA import *
 from algorithms.KRUSKAL import *
 from algorithms.PRIM import *
 from algorithms.BELLMAN_FORD import *
+from algorithms.KRUSKAL import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from structs.file_graph import File
 from app.print_path_BFS import *
 from app.print_times import *
-
+from app.is_connected import *
+from app.minimum_path import *
 
 class Controller(object):
     "A classe controller, seguindo o padrão MVC, será a responsável por fazer o interfaceamento entre \no usuário (cliente main) e a implementação das estruturas e respectivos métodos."
@@ -36,14 +38,16 @@ class Controller(object):
     
     def prim(self, s):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
-        prim_res = self._G.prim(s)
-        print(prim_res)
-        input()
+        if self._G.is_valued():
+            prim_res = self._G.prim(s)
+            print(prim_res)
+            input()
         
-    def kruskal(self, s):
-        kruskal_res = self._G.kruskal(s)
-        print(kruskal_res)
-        input()    
+    def kruskal(self):
+        if self._G.is_valued():
+            kruskal_res = KRUSKAL(self._G)
+            print(kruskal_res)
+            input()    
     
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
@@ -61,12 +65,23 @@ class Controller(object):
     
     def caminho_entre_vertex(self, s, t):
         "método para verificar se existe caminho entre dois vértices"
-        pass
+        print('1 - Caminho usando BFS')
+        print('2 - Caminho usando DFS')
+        op = input()
+        if op == '1':
+            res = BFS(self._G, s)
+            print_path(res, t)
+            input()
+        else:
+            res = DFS(self._G, s)
+            print_path(res, t)
+            input()
 
     def is_conected(self):
         "método para verificar se um grafo é conexo"
-
-        pass
+        is_connected(self._G)
+        input()
+        
     
     def is_graph(self):
         return True if self._contents[0]==1 else False
@@ -137,7 +152,8 @@ class Controller(object):
         edges = File.get_edges()
         self._G.set_num_edges(len(edges))
         
-    def select_vertex(self):
-        self._G.print_all_vertexes()
+    def select_vertex(self,show=True):
+        if show == True:
+            self._G.print_all_vertexes()
         s = input('Insira o vértice: ')
         return s

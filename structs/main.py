@@ -31,7 +31,7 @@ def main():
                 ctrl.BFS(s)
             elif op == '4':
                 s = ctrl.select_vertex()
-                t = ctrl.select_vertex()
+                t = ctrl.select_vertex(show=False)
                 ctrl.caminho_entre_vertex(s, t)
             elif op == '5':
                 ctrl.is_conected()
