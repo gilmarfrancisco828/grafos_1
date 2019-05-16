@@ -82,7 +82,7 @@ class AdjList(Graph):
     def get_value(self, a, b):
         if self.is_valued():
             if a in self.vertexes:
-                cur = self.vertices[a]
+                cur = self.vertexes[a]
                 while cur is not None:
                     if b == cur.get_index():
                         return cur.get_value()
