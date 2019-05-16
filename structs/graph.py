@@ -15,7 +15,7 @@ class Graph(object):
         self._type = _type
         self._val = _val
         self.vertexes = defaultdict(dict)
-        self._len_edges = self.set_num_edges()
+        self._len_edges = None
 
     @abstractmethod
     def make_relation(self, a, b, val: int) -> bool:
@@ -41,8 +41,8 @@ class Graph(object):
     def get_len(self) -> int:
         return self._len
 
-    def get_len_edges(self)->int:
+    def get_len_edges(self) -> int:
         return self._len_edges
-    
-    def set_num_edges(self, num_edges: int=None):
-        return num_edges
+
+    def set_num_edges(self, num_edges: int = None):
+        self._len_edges = num_edges

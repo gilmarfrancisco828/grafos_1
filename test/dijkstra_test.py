@@ -19,36 +19,46 @@ def tests():
     # grafo vazio
     contents = read_file("test/test_files/01_vazio.txt")
     graph = generate_graph(contents, True, True)
-    result = DIJKSTRA_LIST(graph, '0')
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, '0')
     print("- Teste para Grafo Vazio")
     res_d(not(len(result.d)))
     res_pi(not(len(result.pi)))
 
-    # grafo unitário
+    # # grafo unitário
     contents = read_file("test/test_files/02_unitario.txt")
     graph = generate_graph(contents, True, True)
-    result = DIJKSTRA_LIST(graph, 'a')
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, 'a')
     print("- Teste para Grafo Unitário")
     res_d(result.d == {'a': 0})
     res_pi(result.pi == {'a': None})
 
-    
-
-    # grafo nao conexo
+    # # grafo nao conexo
     contents = read_file("test/test_files/04_nao_conexo.txt")
     graph = generate_graph(contents, True, True)
-    result = DIJKSTRA_LIST(graph, 'a')
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, 'a')
     print("- Teste para Grafo Não Conexo")
     res_d(result.d == {'a': 0, 'b': float('inf')})
     res_pi(result.pi == {'a': None, 'b': None})
 
-    #grafo com loop negativo
+    # #grafo com loop negativo
     contents = read_file('test/test_files/09_3vertices_1loop_negativo.txt')
     graph = generate_graph(contents, True, True)
-    graph.set_num_edges(get_len_edges())
-    result = DIJKSTRA_LIST(graph, 'a')
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, 'a')
     print("- Teste para com Loop negativo")
-    res_loops(result.loops == graph.get_len_edges())
+    res_loops(result.loop < result.max_it)
+
+    contents = read_file('test/test_files/10_dijkstra.txt')
+    graph = generate_graph(contents, True, False)
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, 's')
+    print("- Teste Slide")
+    res_d(result.d == {'s': 0, 't': 8, 'x': 9, 'y': 5, 'z': 7})
+    res_pi(result.pi == {'s': None, 't': 'y', 'x': 't', 'y': 's', 'z': 'y'})
+
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 def read_file(fileName):
@@ -66,9 +76,9 @@ def generate_graph(contents: list, val: bool, t_struct: bool):
         t_struct: True => AdjList e False => AdjMat
     """
     if t_struct:
-        graph = AdjList(int(contents[1]), Type.GRAPH, val)
+        graph = AdjList(int(contents[1]), Type.DIGRAPH, val)
     else:
-        graph = AdjMatrix(int(contents[1]), Type.GRAPH, val)
+        graph = AdjMatrix(int(contents[1]), Type.DIGRAPH, val)
     for x in contents[2:]:
         x = x.split()
         if(len(x) == 1):
@@ -80,3 +90,10 @@ def generate_graph(contents: list, val: bool, t_struct: bool):
 
     # graph.print_all()
     return graph
+
+def main():
+    tests()
+
+
+if __name__ == "__main__":
+    main()

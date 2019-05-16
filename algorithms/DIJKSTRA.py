@@ -41,27 +41,22 @@ class MinHeap:
 
 
 class DijkstraAux(object):
-    
+
     def __init__(self, s, len: int, len_edge: int):
         self.Q = MinHeap()
         # self.d = [float('inf') for i in range(0, len)]
         # self.pi = [None for i in range(0, len)]
         self.d = defaultdict(dict)
         self.pi = defaultdict(dict)
-        self.d[s] = defaultdict(dict)
-        self.Q.updateKey((0, '0'))
-        self.max_it = len
-        
-    
+        self.Q.updateKey((0, s))
+        self.max_it = len + len_edge
+        self.loop = 0
 
     def print_dijkstra(self):
         for x in self.d:
             print(x)
         for x in self.pi:
             print(x)
-        
-
-
 
 
 def relax(aux: DijkstraAux, u, v, w: int):
@@ -69,28 +64,30 @@ def relax(aux: DijkstraAux, u, v, w: int):
         aux.d[v] = aux.d[u] + w
         aux.pi[v] = u
         aux.Q.updateKey((aux.d[u] + w, v))
-        print((aux.d[u] + w, u))
+        # print((aux.d[u] + w, u))
 
 
-
-def dijkstra(G: Graph, s):
+def DIJKSTRA(G: Graph, s):
     aux = DijkstraAux(s, G.get_len(), G.get_len_edges())
     for i in G.vertexes:
-            aux.d[i] = float('inf')
-            aux.pi[i] = None
+        aux.d[i] = float('inf')
+        aux.pi[i] = None
+
     if s in G.vertexes:
         aux.d[s] = 0
+    else:
+        return aux
 
     S = []
-    loop = 0
-    while len(aux.Q.heap) != 0 and loop < aux.max_it:
+    # G.print_all_vertexes()
+    while len(aux.Q.heap) != 0 and aux.loop < aux.max_it:
         # print("Len:",len(aux.Q.heap))
         u = aux.Q.extractMin()[1]
-        print("u:", u)
         S.append(u)
         current = G.vertexes[u]
+        # print(current)
         if isinstance(G, AdjList):
-            while current is not None:
+            while current is not None and current != {}:
                 relax(aux, u, current.get_index(), current.get_value())
                 current = current.get_next()
             # break
@@ -99,11 +96,11 @@ def dijkstra(G: Graph, s):
                 relax(aux, u, v, G.get_value(u, v))
         else:
             print('Erro: Formato inválido!')
-        loop +=1
+        aux.loop +=1
 
 
-    print(aux.d)
-    print(aux.pi)
+    # print(aux.d)
+    # print(aux.pi)
     return aux
 
 #print(DIJKSTRA_LIST(G, 0))
