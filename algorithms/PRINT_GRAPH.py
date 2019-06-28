@@ -13,7 +13,7 @@ def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None):
     color = None
     edges_colors = None
     if graph.get_type() == Type.DIGRAPH:
-        G=nx.MultiDiGraph()
+        G=nx.DiGraph()
     elif graph.get_type() == Type.GRAPH:
         G=nx.Graph()
     for u in sorted(graph.vertexes):
@@ -42,8 +42,9 @@ def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None):
                 
     if graph.is_valued():
         labels = nx.get_edge_attributes(G,'weight')
-        nx.draw_networkx_edge_labels(G, nx.circular_layout(G), ax=axe, edge_labels=labels)
-        # nx.draw_networkx_edges(G, nx.circular_layout(G), ax=axe, edge_color=edges_colors)
+        # print(labels)
+        nx.draw_networkx_edge_labels(G, pos=pos, ax=axe, edge_labels=labels)
+        # nx.draw_networkx_edges(G, pos=pos, ax=axe, edge_color=edges_colors)
         # nx.draw_networkx_edges(G, pos=nx.spring_layout(G), axe=axe, )
     nx.draw_networkx(G, pos=pos, ax=axe, node_color=color)
 
