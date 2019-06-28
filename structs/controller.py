@@ -33,33 +33,46 @@ class Controller(object):
     def BFS(self, s):
         "método para realizar ao algoritmo Breadth-First Search"
         BFS_res = BFS(self._G, s)
-        print_path(BFS_res, s)
+        BFSAuxiliar.print_BFS(BFS_res, s)
         input()
     
     def prim(self, s):
         "método que utiliza o algoritmo de prim para encontrar uma árvore geradora mínima"
         if self._G.is_valued():
-            prim_res = self._G.prim(s)
-            print(prim_res)
+            prim_res = PRIM(self._G, s)
+            print('Arestas: ',*prim_res)
             input()
+        else:
+            print('Erro! Grafo não valorado!')
+        input()
         
     def kruskal(self):
         if self._G.is_valued():
             kruskal_res = KRUSKAL(self._G)
             print('Arestas: ',*kruskal_res)
             input()    
-    
+        else: 
+            print('Erro! Grafo não valorado!')
+        input()
+
     def dijkstra(self, s):
         "método que utiliza o algoritmo de Dijkstra para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        self._G.set_num_edges(self.get_edges())            
-        dijkstra_res = DIJKSTRA(self._G, s)
-        dijkstra_res.print_dijkstra(s)
+        if self._G.is_valued():
+            self._G.set_num_edges(self.get_edges())            
+            dijkstra_res = DIJKSTRA(self._G, s)
+            dijkstra_res.print_dijkstra(s)
+            
+        else: 
+            print('Erro! Grafo não valorado!')
         input()
         
     def bellman_ford(self, s):
         "método que utiliza o algoritmo de Bellman-Ford para encontrar o caminho mínimo\n de um vértice para todos os outros"
-        bellman_ford_res = bellman_ford(self._G, s)
-        bellman_ford_res.print_bellman_ford(s)
+        if self._G.is_valued():
+            bellman_ford_res = bellman_ford(self._G, s)
+            bellman_ford_res.print_bellman_ford(s)
+        else: 
+            print('Erro! Grafo não valorado!')
         input()
     
     def caminho_entre_vertex(self, s, t):
@@ -90,14 +103,14 @@ class Controller(object):
         'Retorna a lista com os elementos do arquivo de grafos'
         return self._contents
 
-    def create_graph(self , contents: list, val: bool, t_struct: bool):
+    def create_graph(self, contents: list, t_struct: bool, tipo, is_valued:bool):
         """Função recebe uma lista de arestas e cria o grafo
             t_struct: True => AdjList e False => AdjMat
         """
         if t_struct:
-            self._G = AdjList(int(self._contents[1]), Type.DIGRAPH, val)
+            self._G = AdjList(int(self._contents[1]), Type.DIGRAPH, is_valued)
         else:
-            self._G = AdjMatrix(int(self._contents[1]), Type.DIGRAPH, val)
+            self._G = AdjMatrix(int(self._contents[1]), Type.DIGRAPH, is_valued)
         for x in contents[2:]:
             x = x.split()
             # print(x)

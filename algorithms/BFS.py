@@ -24,9 +24,26 @@ class BFSAuxiliar():
             self.color[i] = Color.WHITE
             self.d[i] = float('inf')
             self.pi[i] = None
-    
-    def print_BFS(self, s):
-       print_path(self, s)
+    @staticmethod
+    def print_BFS(result, s):
+       for u in result.d:
+        print("Vértice:", u)
+
+        if result.pi[u] is None and u == s:
+            print("Caminho: Raiz", end='')
+        else:
+            if result.pi[u] is None:
+                print("Não são conectados", end='')
+            else:
+                print("Caminho:", u, end='')
+                inc = u
+                len = result.d[inc]
+                while result.pi[inc] is not None:
+                    print(" <-- " + str(result.pi[inc]), end='')
+                    inc = result.pi[inc]
+                    len += result.d[inc]
+                print("\n\tDistância:", len, end='')
+        print("\n")
 
 def change_auxiliar(aux: BFSAuxiliar, q: Queue, u, v):
     if aux.color[v] == Color.WHITE:

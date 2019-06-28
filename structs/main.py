@@ -7,7 +7,15 @@ def main():
     ctrl = Controller()
     ctrl.show_folders()
     ds = ctrl.select_data_structure()
-    ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph())
+    cont = ctrl.get_contents()
+    size = len(cont[2].split()) 
+    
+    if  size == 3:
+        is_valued = True
+    else:
+        is_valued = False
+
+    ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph(), is_valued)
     #help(Controller)
     while True:
         os.system('clear')
@@ -21,7 +29,7 @@ def main():
         else:
             if op == '1':
                 ds = ctrl.select_data_structure()
-                ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph())
+                ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph(), is_valued)
                 #TODO adicionar verificacao valorado ou nao
             elif op == '2':
                 s = ctrl.select_vertex()
