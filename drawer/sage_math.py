@@ -2,7 +2,7 @@
 import sys
 from sage import *
 
-A = random_matrix(ZZ,6, density=0.5)
+# A = random_matrix(ZZ,6, density=0.5)
 G = DiGraph(A, format='weighted_adjacency_matrix')  # graph from matrix
 H = G.plot(edge_labels=True, graph_border=True)
 H.show()             # display on screen

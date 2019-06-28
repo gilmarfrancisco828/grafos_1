@@ -15,20 +15,17 @@ class DFSAuxiliar():
     c_root = None
 
     def __init__(self, vertexes, s):
-        self.path = True if s is not None else False
         self.color = defaultdict(dict)
         self.d = defaultdict(dict)
         self.f = defaultdict(dict)
         self.r = defaultdict(dict)
-        if self.path:
-            self.pi = defaultdict(dict)
+        self.pi = defaultdict(dict)
 
         for i in vertexes:
             self.color[i] = Color.WHITE
             self.d[i] = float('inf')
             self.f[i] = float('inf')
-            if self.path:
-                self.pi[i] = None
+            self.pi[i] = None
 
     def print_DFS(self):
         print('Descoberta: ', self.d)
@@ -36,22 +33,21 @@ class DFSAuxiliar():
 
 
 def DFS_VISIT(G: Graph, aux: DFSAuxiliar, u, time: int):
+    # print(u)
     aux.color[u] = Color.GRAY
     time += 1
     aux.d[u] = time
-    aux.r[aux.c_root] = u  # labels the vertexes
+    aux.r[u] = aux.c_root  # labels the vertexes
     if isinstance(G, AdjMatrix):
         for v in G.vertexes[u]:
             if (aux.color[v] == Color.WHITE):
-                if aux.path:
-                    aux.pi[v] = u
+                aux.pi[v] = u
                 time = DFS_VISIT(G, aux, v, time)
     else:
         cur = G.vertexes[u]
         while cur is not None:
             if aux.color[cur.get_index()] == Color.WHITE:
-                if aux.path:
-                    aux.pi[cur.get_index()] = u
+                aux.pi[cur.get_index()] = u
                 time = DFS_VISIT(G, aux, cur.get_index(), time)
             cur = cur.get_next()
 
@@ -62,7 +58,7 @@ def DFS_VISIT(G: Graph, aux: DFSAuxiliar, u, time: int):
     return time
 
 
-def DFS(G: Graph, s=None, all=False):
+def DFS(G: Graph, s=None, all=False, order=None):
     """Executa a DFS
     s: configura o vertice inicial, por onde a busca comeca
     caso seja None a funcao passa por todos
@@ -84,8 +80,14 @@ def DFS(G: Graph, s=None, all=False):
     # all for True(forcar percorrer por todos) ou
     # s e all nao forem passados por parametro => percorre todos
     if all | (s is None and not all):
-        for u in G.vertexes:
+        if order is not None:
+            V = order
+        else:
+            V = G.vertexes
+        
+        for u in V:
             if aux.color[u] == Color.WHITE:
+                # print()
                 aux.c_root = u
                 time = DFS_VISIT(G, aux, u, time)
 

@@ -17,20 +17,6 @@ class BellmanFordAux(object):
         if s in G.vertexes:
             self.d[s] = 0
 
-    def print_bellman_ford(self):
-        if self.loop == True:
-            print('Há loop negativo, portanto, resposta não confiável')
-        else:
-            print('Não há loop negativo, portanto, resposta confiável')
-        dist = self.d
-        father = self.pi
-        # sorted(dist)
-        x = list(dist.keys())[0]
-        print_path(self, x)
-
-    
-        
-
 
 def relax(aux: BellmanFordAux, u, v, w: int):
     if aux.d[v] > (aux.d[u]+w):
