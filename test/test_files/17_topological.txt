@@ -1,0 +1,12 @@
+1
+9
+cuecas sapatos
+cuecas calças
+calças cinto
+calças sapatos
+cinto paletó
+camisa cinto
+camisa gravata
+meias sapatos
+gravata paletó
+relógios
