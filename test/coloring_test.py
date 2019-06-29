@@ -9,27 +9,27 @@ def tests():
     print("+++ Testes para Coloração +++++++++++++++++++++++++++++++")
     # grafo vazio
     contents = read_file("test/test_files/01_vazio.txt")
-    graph = generate_graph(contents, False, True, True)
+    graph = generate_graph(contents, False, False, True)
     result = coloring(graph)
     print("- Teste para Grafo Vazio")
     res((result==None))
 
     # grafo unitário
     contents = read_file("test/test_files/02_unitario.txt")
-    graph = generate_graph(contents, False, True, True)
+    graph = generate_graph(contents, False, False, True)
     result = coloring(graph)
     print("- Teste para Grafo Unitário")
-    print(result.cc)
-    res((result.cc==1))
+    # print(result.colored)
+    res((result.colored=={'a':0}))
 
     # grafo com 6 vertices slide
     contents = read_file("test/test_files/15_coloring_slide.txt")
-    graph = generate_graph(contents, False, True, True)
+    graph = generate_graph(contents, False, False, True)
     result = coloring(graph)
     print("- Teste para Grafo com 6 vértices do slide")
-    #res(result == [('a', 'b'), ('b', 'c')])
+    res(result.colored == {'5': 0, '1': 1, '2': 0, '3': 1, '4': 2, '6': 3})
 
-    # # # grafo nao conexo
+    # # grafo nao conexo
     # contents = read_file("test/test_files/04_nao_conexo.txt")
     # graph = generate_graph(contents, False, True, True)
     # result = coloring(graph)
@@ -95,6 +95,20 @@ def generate_graph(contents: list, val: bool, t_struct: bool, is_graph: bool):
 
 def main():
     tests()
+    #  python3 - m test.coloring_test
+
+    # contents = read_file("test/test_files/15_coloring_slide.txt")
+    # # contents = read_file('test/test_files/03_3vertices_1loop.txt')
+    # graph = generate_graph(contents, False, False, True)
+    # # graph.print_all()
+    # result = coloring(graph)
+    # print(result.colored=={'5': 0, '1': 1, '2': 0, '3': 1, '4': 2, '6': 3})
+    # # print(result.colored)
+    # # for i in graph.vertexes:
+    # #     for j in graph.vertexes[i]:
+    # #         print(len(graph.vertexes[i]))
+    # #         print('i: ', i)
+        
 
 
 if __name__ == "__main__":

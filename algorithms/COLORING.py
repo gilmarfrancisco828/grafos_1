@@ -8,51 +8,73 @@ import random
 class ColoringAux():
 
     def __init__(self, G):
-        self.colors = {}
+        self.colored = {}
         self.cc     = 0
+        
 
 def bigger_degree(G: Graph):
-    aux = []
-    cont = 0
+    aux = 0
+    v = None
     for i in G.vertexes:
-        print('Valor de i: ',i)
-        if(len(i) < len(aux)):
-            aux = i
-            cont +=1
-        aux = i
-        print("len(aux): \n  valor de aux: ",len(aux), aux)
-    print('contador: ',cont)
-    return cont
-
+        for j in G.vertexes[i]:
+            if aux < len(G.vertexes[i]):
+                aux = len(G.vertexes[i])
+                v = i
+    # input(v)
+    return v
 
 def paint(Vk, aux, G):
     flag = False
-    if Vk in aux.colors.keys():
+    if Vk in aux.colored.keys():
         return
-    if len(aux.colors) == 0:
-        aux.colors[Vk] = aux.cc
-        aux.cc += 1
+    if len(aux.colored) == 0:
+        aux.colored[Vk] = aux.cc
+        # print('if[1] {0} received color: {1}'.format(Vk, aux.colored[Vk]))
+        # aux.cc += 1
+        return
     else:
-        for v in aux.colors:
+        aux1 = aux.colored.copy()
+        for v in aux1:
             if G.is_adjacent(Vk, v):
                 continue
             else:
-                aux.colors[Vk] = aux.colors[v]
                 flag = True
+                aux.colored[Vk] = aux.colored[v]
+                for adj in G.vertexes[Vk]:
+                    if adj in aux.colored.keys():
+                        if aux.colored[Vk] == aux.colored[adj]:
+                            flag = False
+                # print('else[1,2]{0} received color: {1}'.format(Vk, aux.colored[Vk]))
+                if(flag == True):
+                    return
+
     if flag == False:
         aux.cc += 1
-        aux.colors[Vk] = aux.cc
+        aux.colored[Vk] = aux.cc
+        # print('if[2]{0} received color: {1}'.format(Vk, aux.colored[Vk]))
+        
             
 
 def coloring(G: Graph):
     if G.get_len() == 0:
         return None
     aux = ColoringAux(G)
-    u = bigger_degree(G)
-    coloring_vertex(G, u, aux)
+    
+    if G.get_len() == 1:
+        for i in G.vertexes:
+            aux.colored[i] = aux.cc
+    else:    
+        aux = ColoringAux(G)
+        u = bigger_degree(G)
+        coloring_vertex(G, u, aux)
     return aux
 
 def coloring_vertex(G: Graph, Vk, aux):
+    # print('vértice a ser colorido: ',Vk)
+    # input()
+    if Vk in aux.colored:
+        return
     paint(Vk, aux, G)
     for Vj in G.vertexes[Vk]:
+        # input(Vj)
         coloring_vertex(G, Vj, aux)
