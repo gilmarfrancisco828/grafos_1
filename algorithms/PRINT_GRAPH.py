@@ -35,7 +35,7 @@ def get_colors_components(G, pos, axe, color, colors):
 
 
 def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None,
-                colors_fun=get_colors_components):
+                colors_fun=None):
     color = None
     if graph.get_type() == Type.DIGRAPH:
         G=nx.DiGraph()
@@ -53,7 +53,8 @@ def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None,
     # chama a funcao de coloracao caso se deseja alterar cores dos grafos
     if colors is not None:
         color = []
-        colors_fun(G, pos, axe, color, colors)
+        if colors_fun is not None:
+            colors_fun(G, pos, axe, color, colors)
 
     if graph.is_valued():
         labels = nx.get_edge_attributes(G, 'weight')

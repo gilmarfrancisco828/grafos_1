@@ -56,7 +56,22 @@ class DijkstraAux(object):
 
     def print_dijkstra(self, s):
         print_path(self, s)
-
+    
+    def get_path(self, u):
+        path = []
+        if self.pi[u] is None:
+            return []
+        else:
+            inc = u
+            len = self.d[inc]
+            # print(self.d[inc])
+            # input()
+            while self.pi[inc] is not None: 
+                path.append((self.pi[inc], inc))
+                inc = self.pi[inc]
+                # len += self.d[inc]
+        return path
+    
 
 def relax(aux: DijkstraAux, u, v, w: int):
     if aux.d[v] > (aux.d[u]+w):

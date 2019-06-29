@@ -1,3 +1,4 @@
+from algorithms.PRINT_GRAPH import *
 from algorithms.DIJKSTRA import *
 from structs.graph import Type
 
@@ -96,4 +97,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    contents = read_file("test/test_files/10_dijkstra.txt")
+    graph = generate_graph(contents, True, False)
+    graph.set_num_edges(get_len_edges(contents))
+    result = DIJKSTRA(graph, 's')
+    edges = result.get_path('x')
+    soma = 0
+    for u,v in edges:
+        soma+=graph.get_value(u, v)
+
+    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
+    PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Distância: {}".format(soma), colors=edges, colors_fun=get_colors_tree)
+    plt.show() # display
