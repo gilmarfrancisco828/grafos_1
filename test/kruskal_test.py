@@ -1,3 +1,5 @@
+from algorithms.PRINT_GRAPH import *
+from test.helper_leitura import *
 from algorithms.KRUSKAL import *
 from structs.graph import Type
 
@@ -38,33 +40,33 @@ def tests():
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 
-def read_file(fileName):
-    '''Realiza a leitura do arquivo texto que contem 
-    o grafo, recebe nome do arquivo'''
-    f = open(fileName, "r")
-    contents = f.read().split("\n")
-    return contents
+# def read_file(fileName):
+#     '''Realiza a leitura do arquivo texto que contem 
+#     o grafo, recebe nome do arquivo'''
+#     f = open(fileName, "r")
+#     contents = f.read().split("\n")
+#     return contents
 
 
-def generate_graph(contents: list, val: bool, t_struct: bool):
-    """Função recebe uma lista de arestas e cria o grafo
-        t_struct: True => AdjList e False => AdjMat
-    """
-    if t_struct:
-        graph = AdjList(int(contents[1]), Type.DIGRAPH, val)
-    else:
-        graph = AdjMatrix(int(contents[1]), Type.DIGRAPH, val)
-    for x in contents[2:]:
-        x = x.split()
-        if(len(x) == 1):
-            graph.make_relation(x[0])
-        elif(len(x) == 2):
-            graph.make_relation(x[0], x[1])
-        else:
-            graph.make_relation(x[0], x[1], int(x[2]))
+# def generate_graph(contents: list, val: bool, t_struct: bool):
+#     """Função recebe uma lista de arestas e cria o grafo
+#         t_struct: True => AdjList e False => AdjMat
+#     """
+#     if t_struct:
+#         graph = AdjList(int(contents[1]), Type.DIGRAPH, val)
+#     else:
+#         graph = AdjMatrix(int(contents[1]), Type.DIGRAPH, val)
+#     for x in contents[2:]:
+#         x = x.split()
+#         if(len(x) == 1):
+#             graph.make_relation(x[0])
+#         elif(len(x) == 2):
+#             graph.make_relation(x[0], x[1])
+#         else:
+#             graph.make_relation(x[0], x[1], int(x[2]))
 
-    # graph.print_all()
-    return graph
+#     # graph.print_all()
+#     return graph
 
 
 def main():
@@ -72,4 +74,15 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    contents = read_file("test/test_files/15_kruskal.txt")
+    graph = generate_graph(contents, True, False, True)
+    result = KRUSKAL(graph)
+    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
+    print(result)
+    soma = 0
+    for val in result:
+        soma+=val[2]
+    
+    PRINT_GRAPH(graph, axes, "AGM - Kruskal - Custo Total: {}".format(soma), colors=result, colors_fun=get_colors_tree)
+    plt.show() # display
+    # main()

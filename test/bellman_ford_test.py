@@ -1,6 +1,7 @@
+# from algorithms.PRINT_GRAPH import *
 from algorithms.BELLMAN_FORD import *
 from structs.graph import Type
-
+# from test.helper_leitura import *
 
 def res_d(condition):
     print ("\t", "✗ " if not(condition) else "✓", "vetor d")
@@ -103,4 +104,13 @@ def main():
 
 
 if __name__ == "__main__":
+    # contents = read_file("test/test_files/09_bellman_ford_slide.txt")
+    # graph = generate_graph(contents, True, True, False)
+    # result = bellman_ford(graph, 'r')
+    # print(result.d)
+    # print(result.pi)
+    # fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25,15))
+    # PRINT_GRAPH(G, axes, 'Componentes Fortemente Conexas', colors=colors)
+    # # PRINT_GRAPH(Gt, ax[1], 'Transposto')
+    # plt.show() # display
     main()

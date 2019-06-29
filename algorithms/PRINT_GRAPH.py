@@ -7,11 +7,36 @@ except:
     raise
 
 import networkx as nx
-from networkx.drawing.nx_agraph import write_dot, graphviz_layout
+# from networkx.drawing.nx_agraph import write_dot, graphviz_layout
+color_default = '#8888FF'
 
-def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None):
+def get_colors_tree(G, pos, axe, color, colors):
+    print("Oi")
+    # print(G.edges())
+    # colors[]
+    color.append(color_default)
+    nx.draw_networkx_edges(G,
+        pos=pos, ax=axe, 
+        edgelist=colors, width=6, 
+        alpha=0.8, edge_color=color_default)
+
+
+def get_colors_components(G, pos, axe, color, colors):
+    for i in G.nodes():
+        color.append(colors['hex'][colors['elements'][i]])
+        # print(color)
+        for u, v in G.edges():
+            # print(u, v)
+            if colors['elements'][u] == colors['elements'][v]:
+                nx.draw_networkx_edges(G,
+                    pos=pos, ax=axe, 
+                    edgelist=[(u, v)], width=6, 
+                    alpha=0.8, edge_color=colors['hex'][colors['elements'][u]])
+
+
+def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None,
+                colors_fun=get_colors_components):
     color = None
-    edges_colors = None
     if graph.get_type() == Type.DIGRAPH:
         G=nx.DiGraph()
     elif graph.get_type() == Type.GRAPH:
@@ -23,29 +48,17 @@ def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None):
                 G.add_edge(u, v, weight=graph.get_value(u, v))
             else:
                 G.add_edge(u, v)
-    # pos=graphviz_layout(G, prog='twopi')
+    # pos=graphviz_layout(G, prog='circo')
     pos=nx.circular_layout(G)
-
+    # chama a funcao de coloracao caso se deseja alterar cores dos grafos
     if colors is not None:
         color = []
-        edges_colors = []
-        for i in G.nodes():
-            color.append(colors['hex'][colors['elements'][i]])
-        # print(color)
-        for u, v in G.edges():
-            # print(u, v)
-            if colors['elements'][u] == colors['elements'][v]:
-                nx.draw_networkx_edges(G,
-                    pos=pos, ax=axe, 
-                    edgelist=[(u, v)], width=6, 
-                    alpha=0.8, edge_color=colors['hex'][colors['elements'][u]])
-                
+        colors_fun(G, pos, axe, color, colors)
+
     if graph.is_valued():
-        labels = nx.get_edge_attributes(G,'weight')
-        # print(labels)
+        labels = nx.get_edge_attributes(G, 'weight')
         nx.draw_networkx_edge_labels(G, pos=pos, ax=axe, edge_labels=labels)
-        # nx.draw_networkx_edges(G, pos=pos, ax=axe, edge_color=edges_colors)
-        # nx.draw_networkx_edges(G, pos=nx.spring_layout(G), axe=axe, )
+
     nx.draw_networkx(G, pos=pos, ax=axe, node_color=color)
 
     if axe is not None:

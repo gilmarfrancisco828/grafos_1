@@ -29,7 +29,7 @@ def KRUSKAL(G: Graph):
         u = setV[uv[0]]
         v = setV[uv[1]]
         if u != v:
-            X.append((uv[0], uv[1]))
+            X.append((uv[0], uv[1], uv[2]))
             for i in setV:
                 if setV[i] == v:
                     setV[i] = u
