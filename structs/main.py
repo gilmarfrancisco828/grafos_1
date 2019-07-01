@@ -5,18 +5,8 @@ import os
 def main():
 
     ctrl = Controller()
-    ctrl.show_folders()
-    ds = ctrl.select_data_structure()
-    cont = ctrl.get_contents()
-    size = len(cont[2].split()) 
+    ctrl.build_graph()
     
-    if  size == 3:
-        is_valued = True
-    else:
-        is_valued = False
-
-    ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph(), is_valued)
-    #help(Controller)
     while True:
         os.system('clear')
         op = ctrl.show_menu()
@@ -28,32 +18,29 @@ def main():
             print('Opção inválida!')
         else:
             if op == '1':
-                ds = ctrl.select_data_structure()
-                ctrl.create_graph(ctrl.get_contents(), ds, ctrl.is_graph(), is_valued)
-                #TODO adicionar verificacao valorado ou nao
+                ctrl.ctrl_connected_components()   
             elif op == '2':
-                s = ctrl.select_vertex()
-                ctrl.DFS(s)
+                ctrl.ctrl_coloring()
             elif op == '3':
-                s = ctrl.select_vertex()
-                ctrl.BFS(s)
+                ctrl.ctrl_mst()
             elif op == '4':
-                s = ctrl.select_vertex()
-                t = ctrl.select_vertex(show=False)
-                ctrl.caminho_entre_vertex(s, t)
+                print(ctrl.get_vertexes())
+                s = input('Insira o vértice inicial: ')
+                ctrl.ctrl_shortest_path(s)
+
             elif op == '5':
-                ctrl.is_conected()
+                ctrl.ctrl_connectivity()
             elif op == '6':
-                s = ctrl.select_vertex()
-                ctrl.prim(s)
+                ctrl.ctrl_transpose()
             elif op == '7':
-                ctrl.kruskal()
+                ctrl.ctrl_topological_sort()
             elif op == '8':
-                s = ctrl.select_vertex()
-                ctrl.dijkstra(s)
+                print(ctrl.get_vertexes())
+                s = input('Insira o vértice inicial: ')
+                ctrl.ctrl_BFS(s)
             elif op == '9':
-                s = ctrl.select_vertex()
-                ctrl.bellman_ford(s)
+                ctrl.build_graph()
+                
             
             
                 

@@ -92,10 +92,10 @@ def main():
 if __name__ == "__main__":
     # main()
     contents = read_file("test/test_files/16_BFS.txt")
-    graph = generate_graph(contents, False, False, True)
+    graph = generate_graph(contents, False, False, False)
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25, 15))
     PRINT_GRAPH(graph, axes[0], "Grafo", colors=None, colors_fun=get_colors_tree)
-    
+        
     result = BFS(graph, 'F')
     edges= []
     order = list(result.q_path.queue)

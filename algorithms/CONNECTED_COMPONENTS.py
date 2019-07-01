@@ -24,5 +24,6 @@ def connected_components(G: Graph):
     
 
     PRINT_GRAPH(G, axes,'Componentes Conexas',  colors=colors,colors_fun=get_colors_components)
+    
     plt.show()
     return roots, res.r

@@ -12,10 +12,14 @@ def generate_graph(contents: list, val: bool, t_struct: bool, is_graph: bool):
     """Função recebe uma lista de arestas e cria o grafo
         t_struct: True => AdjList e False => AdjMat
     """
-    if is_graph:
+    if is_graph==True:
         _type = Type.GRAPH
+        # print('type: ',_type)
+        # input()
     else:
-         _type = Type.DIGRAPH
+        _type = Type.DIGRAPH
+        # print('type: ',_type)
+        # input()
 
     if t_struct:
         graph = AdjList(int(contents[1]), _type, val)

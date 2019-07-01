@@ -17,3 +17,4 @@ grapht = transpose(graph)
 PRINT_GRAPH(grapht, ax[1], 'Transposto')
 print(graph.vertexes['b'])
 plt.show() # display
+
