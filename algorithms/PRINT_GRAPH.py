@@ -11,6 +11,13 @@ import networkx as nx
 color_default = '#8888FF'
 color_warning = '#FF8888'
 
+def get_colors_coloring(G, pos, colors):
+    
+    for i in G.nodes():
+        # input(i)
+        # input(colors['hex'][i])
+        nx.draw_networkx_nodes(G, pos=pos, node_color=colors['hex'][i], nodelist=i)
+
 def get_colors_tree(G, pos, axe, colors):
     # print(colors)
     # print(G.edges())
@@ -67,7 +74,10 @@ def PRINT_GRAPH(graph: Graph, axe=None, title='', colors=None,
 
     if colors is not None:
         if colors_fun is not None:
-            colors_fun(G, pos, axe, colors)
+            if colors_fun is not get_colors_coloring:
+                colors_fun(G, pos, axe, colors)
+            else:
+                colors_fun(G, pos, colors)
 
     if graph.is_valued():
         labels = nx.get_edge_attributes(G, 'weight')
