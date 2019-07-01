@@ -72,6 +72,10 @@ def coloring(G: Graph):
         aux = ColoringAux(G)
         u = bigger_degree(G)
         coloring_vertex(G, u, aux)
+        # input(G.vertexes)
+        for v in G.vertexes:
+            if v not in aux.colored.keys():
+                coloring_vertex(G, v, aux)
     hex_colors = {}
 
     # print(aux.colored.keys())
