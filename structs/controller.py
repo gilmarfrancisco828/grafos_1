@@ -84,14 +84,24 @@ class Controller(object):
     def ctrl_shortest_path(self, s):
         graph = self._G
         graph.set_num_edges(self.get_len_edges(self._contents))
-        result = DIJKSTRA(graph, 's')
-        edges = result.get_path('x')
-        soma = 0
-        for u,v in edges:
-            soma+=graph.get_value(u, v)
+        result = DIJKSTRA(graph, s)
+        edges = []
+        textstr = 'Distâncias Mínimas:'
+        for v in graph.vertexes:
+            if v != s:
+                soma = 0
+                path = result.get_path(v)
+                for u, w in path:
+                    soma += graph.get_value(u, w)
+                textstr += "\n{}: {}".format(v, soma)
+                edges += path
+        # print(soma)
 
         fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
-        PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Distância: {}".format(soma), colors=edges, colors_fun=get_colors_tree)
+        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+        axes.text(0.05, 0.95, textstr, transform=axes.transAxes, fontsize=14, verticalalignment='top', bbox=props)
+
+        PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Início({})".format(start), colors=edges, colors_fun=get_colors_dij)
         plt.show() # display
 
     def ctrl_connectivity(self):
@@ -140,7 +150,7 @@ class Controller(object):
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25, 15))
         PRINT_GRAPH(graph, axes[0], "Grafo", colors=None, colors_fun=get_colors_tree)
             
-        result = BFS(graph, 'F')
+        result = BFS(graph, s)
         edges= []
         order = list(result.q_path.queue)
         # print(order)

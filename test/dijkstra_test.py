@@ -101,13 +101,23 @@ if __name__ == "__main__":
     contents = read_file("test/test_files/10_dijkstra.txt")
     graph = generate_graph(contents, True, False)
     graph.set_num_edges(get_len_edges(contents))
-    result = DIJKSTRA(graph, 's')
-    edges = result.get_path('x')
-    print(edges)
-    soma = 0
-    for u,v in edges:
-        soma+=graph.get_value(u, v)
+    start = 't'
+    result = DIJKSTRA(graph, start)
+    edges = []
+    textstr = 'Distâncias Mínimas:'
+    for v in graph.vertexes:
+        if v != start:
+            soma = 0
+            path = result.get_path(v)
+            for u, w in path:
+                soma += graph.get_value(u, w)
+            textstr += "\n{}: {}".format(v, soma)
+            edges += path
+    print(soma)
 
     fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
-    PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Distância( S -> X ): {}".format(soma), colors=edges, colors_fun=get_colors_dij)
+    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+    axes.text(0.05, 0.95, textstr, transform=axes.transAxes, fontsize=14, verticalalignment='top', bbox=props)
+
+    PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Início({})".format(start), colors=edges, colors_fun=get_colors_dij)
     plt.show() # display

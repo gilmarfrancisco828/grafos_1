@@ -4,7 +4,6 @@ s t 10
 s y 5
 t y 2
 t x 1
-y t 3
 y z 2
 y x 9
 x z 4
