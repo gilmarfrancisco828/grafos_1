@@ -103,10 +103,11 @@ if __name__ == "__main__":
     graph.set_num_edges(get_len_edges(contents))
     result = DIJKSTRA(graph, 's')
     edges = result.get_path('x')
+    print(edges)
     soma = 0
     for u,v in edges:
         soma+=graph.get_value(u, v)
 
     fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
-    PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Distância: {}".format(soma), colors=edges, colors_fun=get_colors_tree)
+    PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Distância( S -> X ): {}".format(soma), colors=edges, colors_fun=get_colors_dij)
     plt.show() # display

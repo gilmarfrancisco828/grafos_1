@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import sys
 import math
-size = 4
+size = 9
 root = int(math.sqrt(size))
 nodes = []
 for i in range(0, size):
@@ -65,7 +65,7 @@ def leleo(g):
 
 def main(argv):
     # filename = argv[1]
-    filename = 'sudoku/text.txt'
+    filename = 'sudoku/text1.txt'
     
     # create graph
     g = nx.Graph()

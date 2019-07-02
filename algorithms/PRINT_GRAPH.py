@@ -29,6 +29,11 @@ def get_colors_tree(G, pos, axe, colors):
         # connectionstyle='arc3,rad=0.2'
     nx.draw_networkx_nodes(G,pos=pos, node_color=color_default, nodelist=G.nodes(), label='Intermediários')
 
+def get_colors_dij(G, pos, axe, colors):
+    get_colors_tree(G, pos, axe, colors)
+    u = len(colors) - 1
+    nx.draw_networkx_nodes(G,pos=pos, node_color=color_warning, nodelist=[colors[u][0]], label='Início')
+    axe.legend()
 
 def get_colors_bfs(G, pos, axe, colors):
     get_colors_tree(G, pos, axe, colors)
