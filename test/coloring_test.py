@@ -96,8 +96,8 @@ def generate_graph(contents: list, val: bool, t_struct: bool, is_graph: bool):
 def main():
     # tests()
     #  python3 - m test.coloring_test
-    contents = read_file("test/16_componentes_conectadas_I_grafo.txt")
-    contents = read_file("test/16_componentes_conectadas_II_grafo.txt")
+    contents = read_file("test/test_files/16_componentes_conectadas_I_grafo.txt")
+    # contents = read_file("test/test_files/16_componentes_conectadas_II_grafo.txt")
     graph = generate_graph(contents, False, False, True)
     result = coloring(graph)
 

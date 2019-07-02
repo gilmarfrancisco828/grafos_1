@@ -1,0 +1,8 @@
+python3 -m test.connected_components_test
+python3 -m test.coloring_test
+python3 -m test.kruskal_test
+python3 -m test.dijkstra_test
+python3 -m test.componentes_fortemente_conexas_test
+python3 -m test.transpose_test
+python3 -m test.topological_test
+python3 -m test.BFS_test

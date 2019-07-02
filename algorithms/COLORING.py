@@ -80,7 +80,9 @@ def coloring(G: Graph):
 
     # print(aux.colored.keys())
     # input()
-    cor = get_spaced_colors(aux.cc+1) #cria as cores na quantidade cromática
+    # cor = get_spaced_colors(aux.cc+2) #cria as cores na quantidade cromática
+
+    # print(cor)
     # input(len(cor))
     flipped = {} 
   
@@ -91,14 +93,17 @@ def coloring(G: Graph):
             flipped[value].append(key) 
     print(flipped)
     print(len(flipped))
-    i=0
-    print(cor)
-    print(len(cor))
+    i = 0
+    # j = 1
+    # print(cor)
+    # print(len(cor))
     
     # input()
+    cor = [(0, 255, 0), (255, 0, 0), (0, 0, 255)]
     while i < len(flipped):
         for x in flipped[i]:
             hex_colors[x] = '#%02X%02X%02X' % cor[i]
+            print(cor[i])
         i+=1
     
     
