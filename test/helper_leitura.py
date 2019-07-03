@@ -1,12 +1,17 @@
 from structs.graph import *
 from structs.adj_list import AdjList
 from structs.adj_mat import AdjMatrix
+# import tkinter as tk
+from tkinter.filedialog import askopenfilename
 def read_file(fileName):
     '''Realiza a leitura do arquivo texto que contem 
     o grafo, recebe nome do arquivo'''
     f = open(fileName, "r")
     contents = f.read().split("\n")
     return contents
+def open_file_():
+    filename = askopenfilename()
+    return filename
 
 def generate_graph(contents: list, val: bool, t_struct: bool, is_graph: bool):
     """Função recebe uma lista de arestas e cria o grafo
@@ -20,7 +25,11 @@ def generate_graph(contents: list, val: bool, t_struct: bool, is_graph: bool):
         _type = Type.DIGRAPH
         # print('type: ',_type)
         # input()
-
+    if len(contents[2].split()) == 3:
+        val = True
+    else:
+        val = False
+    
     if t_struct:
         graph = AdjList(int(contents[1]), _type, val)
     else:

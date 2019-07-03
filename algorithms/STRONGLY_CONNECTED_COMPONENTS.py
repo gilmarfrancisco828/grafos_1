@@ -29,7 +29,6 @@ def STRONGLY_CONNECTED_COMPONENTS(G: Graph):
     # ax = axes.flatten()
 
     # print(sorted(G.vertexes))
-    print(sorted(Gt.vertexes))
     res = DFS(Gt, all=True, order=order)
     random.seed()
     roots = set()
@@ -46,8 +45,6 @@ def STRONGLY_CONNECTED_COMPONENTS(G: Graph):
         'hex': hex_colors,
         'elements': res.r
     }
-    print(roots)
-    print(res.r)
     PRINT_GRAPH(G, axes, 'Componentes Fortemente Conexas', colors=colors, colors_fun=get_colors_components)
     # PRINT_GRAPH(Gt, ax[1], 'Transposto')
     plt.show() # display

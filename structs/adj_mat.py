@@ -8,6 +8,12 @@ class AdjMatrix(Graph):
 
     def is_graph(self):
         return self.get_type()
+    
+    def is_graphb(self):
+        if self.get_type() == Type.GRAPH:
+            return True
+        else:
+            return False
 
     def make_relation(self, a, b=None, val=1) -> bool:
         if b is None:  # if the vertice has no relations

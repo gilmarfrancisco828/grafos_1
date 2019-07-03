@@ -109,7 +109,7 @@ def coloring(G: Graph):
     #     i+=1
     for i in aux.colored:
         hex_colors[i] = '#%02X%02X%02X' % cor[aux.colored[i]]
-    print(hex_colors)
+    # print(hex_colors)
     
     # hex_colors[i] = '#%02X%02X%02X' % (aux.colored[i]*89, aux.colored[i]*12, aux.colored[i]*100)
     # print(cor)
@@ -119,6 +119,8 @@ def coloring(G: Graph):
     }
     # print(colors)
     # input()
+    plt.figure(figsize=(25,15))
+    plt.axis('off')
     PRINT_GRAPH(G, colors=colors, colors_fun=get_colors_coloring) 
     plt.title('Valor cromático: {0}'.format(aux.cc+1))
     plt.show()

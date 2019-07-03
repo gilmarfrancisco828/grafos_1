@@ -10,7 +10,6 @@ from algorithms.KRUSKAL import *
 from algorithms.PRIM import *
 from algorithms.BELLMAN_FORD import *
 from algorithms.KRUSKAL import *
-from tkinter.filedialog import askopenfilename
 # from tkinter.filedialog import askopenfilename
 from structs.file_graph import File
 from app.print_path_BFS import *
@@ -59,24 +58,36 @@ class Controller(object):
 
     def ctrl_connected_components(self):
         graph = self._G
-        res = connected_components(graph) 
+        if self._G.is_graphb():
+            res = connected_components(graph) 
+        else:
+            print('A entrada deve ser um grafo.')
+            input()
         
     def ctrl_coloring(self):
         graph = self._G
-        result = coloring(graph)
-    
+        if self._G.is_graphb():
+            result = coloring(graph)
+        else:
+            print('A entrada deve ser um grafo.')
+            input()
+
     def ctrl_mst(self):
         graph = self._G
-        result = KRUSKAL(graph)
-        graph = self._G
-        fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
-        # print(result)
-        soma = 0
-        for val in result:
-            soma+=val[2]
-    
-        PRINT_GRAPH(graph, axes, "AGM - Kruskal - Custo Total: {}".format(soma), colors=result, colors_fun=get_colors_tree)
-        plt.show() # display
+        if self._G.is_graphb():
+            result = KRUSKAL(graph)
+            graph = self._G
+            fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(25, 15))
+            # print(result)
+            soma = 0
+            for val in result:
+                soma+=val[2]
+        
+            PRINT_GRAPH(graph, axes, "AGM - Kruskal - Custo Total: {}".format(soma), colors=result, colors_fun=get_colors_tree)
+            plt.show() # display
+        else:
+            print('A entrada deve ser um grafo.')
+            input()
     
     def get_len_edges(self, contents):
         return len(contents)-2
@@ -101,43 +112,55 @@ class Controller(object):
         props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
         axes.text(0.05, 0.95, textstr, transform=axes.transAxes, fontsize=14, verticalalignment='top', bbox=props)
 
-        PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Início({})".format(start), colors=edges, colors_fun=get_colors_dij)
+        PRINT_GRAPH(graph, axes, "Caminho Mínimo - Dijkstra - Início({})".format(s), colors=edges, colors_fun=get_colors_dij)
         plt.show() # display
 
     def ctrl_connectivity(self):
-        colors, elements = STRONGLY_CONNECTED_COMPONENTS(self._G) 
+        print(self._G.is_graphb())
+        if not self._G.is_graphb():
+            colors, elements = STRONGLY_CONNECTED_COMPONENTS(self._G) 
+        else:
+            print('A entrada deve ser um dígrafo.')
+            input()
     
     def ctrl_transpose(self):
         grapht = transpose(self._G)
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25,15))
-        ax = axes.flatten()
-        graph = self._G
-        # print(graph.is_valued())
-        PRINT_GRAPH(graph, ax[0], 'Original')
-        grapht = transpose(graph)
-        PRINT_GRAPH(grapht, ax[1], 'Transposto')
-        # print(graph.vertexes['b'])
-        plt.show() # display
+        if not self._G.is_graphb():
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25,15))
+            ax = axes.flatten()
+            graph = self._G
+            # print(graph.is_valued())
+            PRINT_GRAPH(graph, ax[0], 'Original')
+            grapht = transpose(graph)
+            PRINT_GRAPH(grapht, ax[1], 'Transposto')
+            # print(graph.vertexes['b'])
+            plt.show() # display
+        else:
+            print('A entrada deve ser um dígrafo.')
+            input()
 
     def ctrl_topological_sort(self):
         graph = self._G
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25, 15))
-        PRINT_GRAPH(graph, axes[0], "Grafo", colors=None, colors_fun=get_colors_tree)
-        
-        order = TOPOLOGICAL_SORT(graph)
-        edges= []
-        order.reverse()
-        # print(order)
-        graph_caminho = AdjMatrix(graph.get_len(), Type.DIGRAPH, False)
-        ant = order.pop(0)
-        for v in order:
-            edges.append((ant, v))
-            graph_caminho.make_relation(ant, v)
-            ant = v
+        if not self._G.is_graphb():
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(25, 15))
+            PRINT_GRAPH(graph, axes[0], "Grafo", colors=None, colors_fun=get_colors_tree)
+            
+            order = TOPOLOGICAL_SORT(graph)
+            edges= []
+            order.reverse()
+            # print(order)
+            graph_caminho = AdjMatrix(graph.get_len(), Type.DIGRAPH, False)
+            ant = order.pop(0)
+            for v in order:
+                edges.append((ant, v))
+                graph_caminho.make_relation(ant, v)
+                ant = v
 
-        PRINT_GRAPH(graph_caminho, axes[1], "Ordem Topológica", colors=edges, colors_fun=get_colors_bfs)
-        plt.show() # display
-
+            PRINT_GRAPH(graph_caminho, axes[1], "Ordem Topológica", colors=edges, colors_fun=get_colors_bfs)
+            plt.show() # display
+        else:
+            print('A entrada deve ser um dígrafo.')
+            input()
 
     def DFS(self, s):
         "método para realizar o algoritmo de Depth-First Search"
@@ -202,7 +225,7 @@ class Controller(object):
           
     def show_folders(self):
         "método para procurar o arquivo que contém o grafo ou dígrafo"
-        filename = askopenfilename()
+        filename = open_file_()
         # self._arq = File()
         self._contents = read_file(filename)
    
@@ -234,7 +257,11 @@ class Controller(object):
         return True if a == 1 else False
 
     def get_vertexes(self):
-        return self._G.vertexes
+        vertices = "[ "
+        for v in self._G.vertexes:
+            vertices+="{} ".format(v)
+        vertices+="]"
+        return vertices
         
     def get_edges(self):
         edges = len(self._contents)-2
