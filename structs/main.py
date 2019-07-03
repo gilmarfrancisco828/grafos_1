@@ -14,7 +14,7 @@ def main():
             exit()
         if op.isdigit == False:
             print('Opção inválida!')
-        elif int(op) not in list(range(1,10)):
+        elif int(op) not in list(range(1,11)):
             print('Opção inválida!')
         else:
             if op == '1':
@@ -40,6 +40,8 @@ def main():
                 ctrl.ctrl_BFS(s)
             elif op == '9':
                 ctrl.build_graph()
+            elif op == '10':
+                ctrl.sudoku()
                 
             
             

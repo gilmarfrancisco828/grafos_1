@@ -10,8 +10,8 @@ from algorithms.KRUSKAL import *
 from algorithms.PRIM import *
 from algorithms.BELLMAN_FORD import *
 from algorithms.KRUSKAL import *
-from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+# from tkinter.filedialog import askopenfilename
 from structs.file_graph import File
 from app.print_path_BFS import *
 from app.print_times import *
@@ -29,7 +29,7 @@ from algorithms.DFS import *
 from algorithms.DIJKSTRA import *
 from algorithms.KRUSKAL import *
 from algorithms.TRANSPOSE import *
-
+from sudoku.sudoku import *
 class Controller(object):
     "A classe controller, seguindo o padrão MVC, será a responsável por fazer o interfaceamento entre \no usuário (cliente main) e a implementação das estruturas e respectivos métodos."
     def __init__(self):
@@ -202,7 +202,6 @@ class Controller(object):
           
     def show_folders(self):
         "método para procurar o arquivo que contém o grafo ou dígrafo"
-        Tk().withdraw()
         filename = askopenfilename()
         # self._arq = File()
         self._contents = read_file(filename)
@@ -222,7 +221,8 @@ class Controller(object):
               '6 - Transposição\n'
               '7 - Ordenação Topológica\n'
               '8 - Busca em Largura\n'
-              '9 - Carregar um novo grafo\n')
+              '9 - Carregar um novo grafo\n'
+              '10- Sudoku\n')
         op = str(input('Digite o valor associado a opção escolhida: '))
         return op
 
@@ -245,3 +245,19 @@ class Controller(object):
             self._G.print_all_vertexes()
         s = input('Insira o vértice: ')
         return s
+    
+    def sudoku(ar):
+        n = int(input('Entre com o tamanho do sudoku: '))
+        # create graph
+        g = nx.Graph()
+
+        # open and read file
+        # Tk().withdraw()
+        # filename = askopenfilename()
+        filename = askopenfilename()
+        # filename = '/home/parafuso828/Documents/UNESP/3_SEM_1/Teoria de Grafos/TP01/grafos_1/sudoku/text1.txt'
+        fp = open(filename, 'r')
+        data = fp.read().split('\n')
+        data.remove('')
+        solve_sudoku(n, g, data)
+        input()
